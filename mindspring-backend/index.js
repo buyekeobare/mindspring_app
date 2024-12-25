@@ -56,3 +56,19 @@ app.post('/journal', (req, res) => {
       }
     });
   });
+
+  // User Authentication Routes
+
+// Register
+app.post('/api/register', async (req, res) => {
+    const { email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      const user = await prisma.user.create({
+        data: { email, password: hashedPassword },
+      });
+      res.status(201).json({ message: 'User registered successfully', user });
+    } catch (error) {
+      res.status(500).json({ error: 'User registration failed' });
+    }
+  });
