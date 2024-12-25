@@ -7,6 +7,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client'); 
 
+const app = express();
+const PORT = 5000;
+const JWT_SECRET = 'your_secret_key'; // Replace with a strong secret key
 
 // Middleware
 app.use(bodyParser.json());
