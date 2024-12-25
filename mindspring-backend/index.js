@@ -44,3 +44,15 @@ app.post('/journal', (req, res) => {
       }
     });
   });
+
+  app.get('/journal', (req, res) => {
+    const query = `SELECT * FROM journal ORDER BY date DESC`;
+  
+    db.all(query, [], (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.json(rows);
+      }
+    });
+  });
