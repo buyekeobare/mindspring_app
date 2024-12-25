@@ -101,3 +101,11 @@ const authenticate = (req, res, next) => {
       next();
     });
   };
+
+  // Protected Route Example
+app.get('/api/protected', authenticate, (req, res) => {
+  res.status(200).json({ message: 'This is a protected route' });
+});
+
+// Start Server
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
