@@ -29,3 +29,18 @@ db.run(`
   
   // Initialize Prisma
   const prisma = new PrismaClient();
+
+  // Routes for Journal
+app.post('/journal', (req, res) => {
+    const { entry } = req.body;
+    const date = new Date().toISOString();
+    const query = `INSERT INTO journal (entry, date) VALUES (?, ?)`;
+  
+    db.run(query, [entry, date], function (err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.status(201).json({ id: this.lastID });
+      }
+    });
+  });
