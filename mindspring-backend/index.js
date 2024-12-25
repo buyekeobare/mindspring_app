@@ -89,6 +89,7 @@ app.post('/api/login', async (req, res) => {
   });
 
   // Middleware to Protect Routes
+  // protect routes
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) return res.status(401).json({ error: 'Token required' });
