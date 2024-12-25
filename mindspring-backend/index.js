@@ -6,3 +6,8 @@ const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client'); 
+
+
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
