@@ -17,3 +17,15 @@ const db = new sqlite3.Database('./thrivewell.db', (err) => {
     if (err) console.error('Database connection error:', err.message);
     else console.log('Connected to the SQLite database.');
   });
+
+  // Create Journal Table
+db.run(`
+    CREATE TABLE IF NOT EXISTS journal (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      entry TEXT NOT NULL,
+      date TEXT NOT NULL
+    )
+  `);
+  
+  // Initialize Prisma
+  const prisma = new PrismaClient();
