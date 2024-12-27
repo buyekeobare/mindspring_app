@@ -47,4 +47,21 @@ const App = () => {
           </button>
         </form>
       </section>
-      
+
+      {/* Display Journal Entries */}
+      <section>
+        <h2>Your Journal Entries</h2>
+        <ul>
+          {journal.map((item) => (
+            <li key={item.id}>
+              <p>{item.entry}</p>
+              <small>{new Date(item.date).toLocaleString()}</small>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+};
+
+export default App;
