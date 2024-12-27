@@ -26,3 +26,7 @@ const App = () => {
         setEntry('');
       });
   };
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>ThriveWell: Mental Health Tool</h1>
