@@ -1,25 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [entry, setEntry] = useState('');
+  const [journal, setJournal] = useState([]);
 
-export default App;
+  // Fetch journal entries
+  useEffect(() => {
+    fetch('http://localhost:5000/journal')
+      .then((response) => response.json())
+      .then((data) => setJournal(data));
+  }, []);
