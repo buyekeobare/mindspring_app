@@ -30,3 +30,21 @@ const App = () => {
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>ThriveWell: Mental Health Tool</h1>
+
+      {/* Journal Section */}
+      <section>
+        <h2>Stress Journal</h2>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            rows="4"
+            value={entry}
+            onChange={(e) => setEntry(e.target.value)}
+            placeholder="Write your thoughts..."
+            style={{ width: '100%', padding: '10px' }}
+          />
+          <button type="submit" style={{ marginTop: '10px', padding: '10px 20px' }}>
+            Save Entry
+          </button>
+        </form>
+      </section>
+      
