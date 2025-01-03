@@ -7,11 +7,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
-<<<<<<< HEAD
-=======
+    "react-scroll": "^1.9.0",
     "vitals": "^0.1.2",
     "web": "^0.0.2",
->>>>>>> 7671ec156f4eaac741bcae0c1db30cbbcf4d4e66
     "web-vitals": "^4.2.4"
   },
   "scripts": {
