@@ -32,12 +32,12 @@ const ResourceCenter = () => {
   };
 
   return (
-    <section className="resource-center py-12 bg-first-color">
+    <section id="resource-center" className="resource-center py-12 bg-first-color scroll-mt-[120px]">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Image Section */}
         <div>
           <img
-            src="/assets/resource-center.jpg"
+            src="/assets/photo_9.jpg"
             alt="Resource Center"
             className="rounded-lg shadow-lg w-full max-w-md mx-auto lg:mx-0" 
           />

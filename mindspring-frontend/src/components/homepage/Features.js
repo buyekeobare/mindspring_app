@@ -8,15 +8,15 @@ const Features = () => {
   const featuresList = [
     {
       icon: <FaLeaf />,
-      title: "Guided Meditation",
-      description:
-        "Experience inner peace with our expert-guided meditation sessions tailored to relax your mind and body.",
-    },
-    {
-      icon: <FaLeaf />,
       title: "Meditation",
       description:
         "Enhance your mindfulness with meditation exercises designed to fit seamlessly into your daily routine.",
+    },
+    {
+      icon: <FaLeaf />,
+      title: "Guided Meditation",
+      description:
+        "Experience inner peace with our expert-guided meditation sessions tailored to relax your mind and body.",
     },
     {
       icon: <FaPenAlt />, 
@@ -26,14 +26,14 @@ const Features = () => {
     },
     {
       icon: <FaComments />,
-      title: "Peer to Peer Support",
+      title: "Peer Support",
       description:
         "Connect with like-minded individuals, share experiences, and foster growth through meaningful conversations.",
     },
   ];
 
   return (
-    <section className="features-section bg-second-color py-12 px-6">
+    <section id="features" className="features-section bg-second-color py-12 px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-fourth-color mb-6">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -66,5 +66,3 @@ const Features = () => {
     </section>
   );
 };
-
-export default Features;

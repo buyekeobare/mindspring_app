@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const AboutSection = () => {
   return (
-    <section className="about-section bg-second-color py-12 px-6">
+    <section id="about" className="about-section bg-second-color py-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Left side: Image */}
         <div className="about-image">
           <img
-            src="/assets/about.jpg"
+            src="/assets/Photo_5.jpg"
             alt="About Mindspring"
             className="rounded-lg shadow-md w-full h-auto"
           />

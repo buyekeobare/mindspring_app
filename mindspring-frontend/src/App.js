@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import DailyAffirmation from "./components/DailyAffirmation";
-import Features from "./components/Features";
+import Features from "./components/homepage/Features";
 import ResourceCenter from "./components/ResourceCenter";
 import Footer from "./components/Footer";
 
