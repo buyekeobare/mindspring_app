@@ -7,6 +7,7 @@ import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import DailyAffirmation from "./components/DailyAffirmation";
 import Features from "./components/Features";
+import ResourceCenter from "./components/ResourceCenter";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <AboutSection />
       <DailyAffirmation />
       <Features />
+      <ResourceCenter />
     </Router>
   );
 };
