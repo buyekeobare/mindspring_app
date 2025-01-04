@@ -105,7 +105,7 @@ const DailyAffirmation = () => {
         {/* Image Section */}
         <div className="lg:w-3/5 px-6 mt-8 lg:mt-0">
           <img
-            src="/assetsdaily-affirmation.jpg"
+            src="/assets/daily-affirmation.jpg"
             alt="Daily Affirmation"
             className="rounded-lg shadow-md w-full h-auto mx-auto lg:mx-4"
           />
