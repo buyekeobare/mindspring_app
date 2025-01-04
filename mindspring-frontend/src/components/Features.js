@@ -19,7 +19,7 @@ const Features = () => {
         "Enhance your mindfulness with meditation exercises designed to fit seamlessly into your daily routine.",
     },
     {
-      icon: <FaPenAlt />, // Changed icon to represent journaling
+      icon: <FaPenAlt />, 
       title: "Stress Journaling",
       description:
         "Manage stress by documenting your thoughts and feelings in a private and structured journaling space.",
