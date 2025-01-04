@@ -1,5 +1,5 @@
 import React from "react";
-import { FaLeaf, FaPenAlt, FaComments } from "react-icons/fa"; // Updated icon for Stress Journaling
+import { FaLeaf, FaPenAlt, FaComments } from "react-icons/fa"; 
 import { useNavigate } from "react-router-dom";
 
 const Features = () => {
