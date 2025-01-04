@@ -8,6 +8,7 @@ import AboutSection from "./components/AboutSection";
 import DailyAffirmation from "./components/DailyAffirmation";
 import Features from "./components/Features";
 import ResourceCenter from "./components/ResourceCenter";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <DailyAffirmation />
       <Features />
       <ResourceCenter />
+      <Footer />
     </Router>
   );
 };
