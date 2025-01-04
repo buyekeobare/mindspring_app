@@ -8,7 +8,7 @@ const AboutSection = () => {
         {/* Left side: Image */}
         <div className="about-image">
           <img
-            src="/assets/Photo_5.jpg"
+            src="/assets/about.jpg"
             alt="About Mindspring"
             className="rounded-lg shadow-md w-full h-auto"
           />
