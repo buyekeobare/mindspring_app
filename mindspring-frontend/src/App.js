@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import DailyAffirmation from "./components/DailyAffirmation";
+import Features from "./components/Features";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <HeroSection />
       <AboutSection />
       <DailyAffirmation />
+      <Features />
     </Router>
   );
 };
