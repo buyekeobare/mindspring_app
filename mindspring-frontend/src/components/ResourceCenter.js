@@ -37,7 +37,7 @@ const ResourceCenter = () => {
         {/* Image Section */}
         <div>
           <img
-            src="/assets/photo_9.jpg"
+            src="/assets/resource-center.jpg"
             alt="Resource Center"
             className="rounded-lg shadow-lg w-full max-w-md mx-auto lg:mx-0" 
           />
