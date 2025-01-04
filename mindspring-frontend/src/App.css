@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
+/* Global Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5e1da;
+  /* Background color based on the first color */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1,
+h2,
+h3 {
+  color: #476268;
+  /* Fourth color for headings */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Tailwind custom utility classes for colors */
+.first-color {
+  background-color: #f5e1da;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.second-color {
+  background-color: #f1f1f1;
 }
 
-.App-link {
-  color: #61dafb;
+.third-color {
+  background-color: #40a798;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fourth-color {
+  background-color: #476268;
+}
+
+.text-fourth-color {
+  color: #476268;
+}
+
+.text-third-color {
+  color: #40a798;
 }
