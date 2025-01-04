@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#476268] text-first-color py-12">
+    <footer id="footer" className="bg-[#476268] text-first-color py-12">
       {/* Top Section */}
       <div className="bg-second-color py-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -22,7 +22,7 @@ const Footer = () => {
         {/* Logo and About Section */}
         <div>
           <img
-            src="/assets/logo.png" 
+            src="/assets/logo.png" // Replace with your logo path
             alt="Mindspring Logo"
             className="w-40 mb-6"
           />

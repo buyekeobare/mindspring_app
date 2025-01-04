@@ -1,26 +1,19 @@
-// src/App.js
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import UpperToolbar from "./components/UpperToolbar";
-import Navbar from "./components/Navbar"; 
-import HeroSection from "./components/HeroSection";
-import AboutSection from "./components/AboutSection";
-import DailyAffirmation from "./components/DailyAffirmation";
-import Features from "./components/Features";
-import ResourceCenter from "./components/ResourceCenter";
-import Footer from "./components/Footer";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LayoutPage from "./components/layout/LayoutPage";
+
+const HomePage = lazy(() => import("./components/homepage/HomePage"));
 
 const App = () => {
   return (
     <Router>
-      <UpperToolbar />
-      <Navbar /> 
-      <HeroSection />
-      <AboutSection />
-      <DailyAffirmation />
-      <Features />
-      <ResourceCenter />
-      <Footer />
+      <LayoutPage>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </Suspense>
+      </LayoutPage>
     </Router>
   );
 };

@@ -7,7 +7,7 @@ const HeroSection = () => {
     >
       {/* Background Image with Opacity */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-50"
+        className="absolute inset-0 bg-cover bg-center opacity-40"
         style={{
           backgroundImage: "url('/assets/hero.jpg')",
         }}

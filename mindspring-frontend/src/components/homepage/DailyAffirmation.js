@@ -53,7 +53,7 @@ const DailyAffirmation = () => {
   };
 
   return (
-    <section className="affirmation-section py-12 bg-first-color">
+    <section id="daily-affirmation" className="affirmation-section py-12 bg-first-color scroll-mt-[120px]">
       <div className="container mx-auto flex flex-col lg:flex-row items-center lg:justify-between lg:gap-12">
         {/* Affirmation Text Section */}
         <div className="lg:w-2/5 px-6 text-center lg:text-left">
