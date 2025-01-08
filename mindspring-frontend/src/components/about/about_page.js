@@ -41,6 +41,11 @@ const AboutPage = () => {
             innovation, Mindspring provides tailored solutions that meet
             individuals where they are in their mental health journey.
           </p>
+          <p className="text-lg text-gray-700">
+            Join our growing community of users who are taking active steps
+            toward healthier lives. Together, we can redefine what it
+            means to thrive.
+          </p>
         </div>
       </section>
     </div>
