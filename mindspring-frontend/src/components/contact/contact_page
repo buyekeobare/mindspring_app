@@ -103,7 +103,21 @@ const ContactPage = () => {
                       required
                     ></textarea>
                   </div>
-                  
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      className="form-button bg-third-color text-white px-6 py-2 rounded-lg hover:bg-fourth-color hover:text-second-color"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        
     );
   };
   
