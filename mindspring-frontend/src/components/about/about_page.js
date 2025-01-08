@@ -30,7 +30,7 @@ const AboutPage = () => {
           </h2>
           <p className="text-lg text-gray-700 mb-6">
             Mindspring is a platform dedicated to supporting mental wellness by
-            providing users with innovative tools, resources, and a sense of
+            providing users with innovative tools, resources and a sense of
             community. Whether you're looking for guided meditation, audio
             therapy, or an engaging space to connect with others, we are here
             to empower your mental well-being.
@@ -38,8 +38,8 @@ const AboutPage = () => {
           <p className="text-lg text-gray-700 mb-6">
             Our mission is to create a world where mental health is prioritized
             and accessible to everyone. With a focus on inclusivity and
-            innovation, Mindspring provides tailored solutions that meet
-            individuals where they are in their mental health journey.
+            innovation, Mindspring provides tailored solutions that meet each
+            individual where they are in their mental health journey.
           </p>
           <p className="text-lg text-gray-700">
             Join our growing community of users who are taking active steps
