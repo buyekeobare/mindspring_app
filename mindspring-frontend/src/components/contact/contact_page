@@ -88,6 +88,21 @@ const ContactPage = () => {
                       required
                     />
                   </div>
+                  <div>
+                    <label
+                      className="block mb-2 text-sm font-bold text-gray-800"
+                      htmlFor="message"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      rows="4"
+                      className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-third-color"
+                      placeholder="Your Message"
+                      required
+                    ></textarea>
+                  </div>
                   
     );
   };
