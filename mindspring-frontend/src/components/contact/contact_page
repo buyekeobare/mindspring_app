@@ -17,7 +17,19 @@ const ContactPage = () => {
           </div>
         </div>
   
-        
+        {/* Contact Details Section */}
+        <section className="contact-details bg-second-color py-12 px-6">
+          <div className="container mx-auto max-w-4xl">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-800">
+                Get in Touch with Us
+              </h2>
+              <p className="text-lg text-gray-700">
+                Feel free to reach out through the form below or contact us
+                directly.
+              </p>
+            </div>
+            
     );
   };
   
