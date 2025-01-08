@@ -28,7 +28,13 @@ const AboutPage = () => {
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
             Our Mission and Vision
           </h2>
-          
+          <p className="text-lg text-gray-700 mb-6">
+            Mindspring is a platform dedicated to supporting mental wellness by
+            providing users with innovative tools, resources, and a sense of
+            community. Whether you're looking for guided meditation, audio
+            therapy, or an engaging space to connect with others, we are here
+            to empower your mental well-being.
+          </p>
         </div>
       </section>
     </div>
