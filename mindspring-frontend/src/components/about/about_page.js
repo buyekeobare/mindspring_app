@@ -35,6 +35,12 @@ const AboutPage = () => {
             therapy, or an engaging space to connect with others, we are here
             to empower your mental well-being.
           </p>
+          <p className="text-lg text-gray-700 mb-6">
+            Our mission is to create a world where mental health is prioritized
+            and accessible to everyone. With a focus on inclusivity and
+            innovation, Mindspring provides tailored solutions that meet
+            individuals where they are in their mental health journey.
+          </p>
         </div>
       </section>
     </div>
