@@ -29,7 +29,21 @@ const ContactPage = () => {
                 directly.
               </p>
             </div>
-            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="text-center md:text-left">
+                <h3 className="text-xl font-bold text-gray-700 mb-4">
+                  Contact Information
+                </h3>
+                <p className="text-lg text-gray-700">
+                  Phone:{" "}
+                  <a
+                    href="tel:+1234567890"
+                    className="text-third-color hover:underline"
+                  >
+                    +123 456 7890
+                  </a>
+                </p>
+                
     );
   };
   
