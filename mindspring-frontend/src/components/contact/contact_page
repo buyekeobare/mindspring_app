@@ -130,7 +130,7 @@ const ContactPage = () => {
                 href="mailto:info@mindspring.com"
                 className="hover:underline"
               >
-                
+                info@mindspring.com
               </a>
             </p>
           </div>
