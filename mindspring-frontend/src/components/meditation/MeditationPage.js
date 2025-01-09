@@ -7,26 +7,26 @@ const MeditationPage = () => {
   const [isTimerActive, setIsTimerActive] = useState(false);
 
   // Guided Meditation State
-//   const [tracks] = useState([
-//     {
-//       id: 1,
-//       title: "Relaxing Mindfulness",
-//       description: "Focus on the present moment with this guided session.",
-//       audioUrl: "/path/to/relaxing-mindfulness.mp3",
-//     },
-//     {
-//       id: 2,
-//       title: "Deep Breathing Exercise",
-//       description: "Practice slow, deep breaths to relax your body and mind.",
-//       audioUrl: "/path/to/deep-breathing.mp3",
-//     },
-//     {
-//       id: 3,
-//       title: "Stress Relief Meditation",
-//       description: "Let go of stress with this calming meditation.",
-//       audioUrl: "/path/to/stress-relief.mp3",
-//     },
-//   ]);
+  const [tracks] = useState([
+    {
+      id: 1,
+      title: "Relaxing Mindfulness",
+      description: "Focus on the present moment with this guided session.",
+      audioUrl: "/path/to/relaxing-mindfulness.mp3",
+    },
+    {
+      id: 2,
+      title: "Deep Breathing Exercise",
+      description: "Practice slow, deep breaths to relax your body and mind.",
+      audioUrl: "/path/to/deep-breathing.mp3",
+    },
+    {
+      id: 3,
+      title: "Stress Relief Meditation",
+      description: "Let go of stress with this calming meditation.",
+      audioUrl: "/path/to/stress-relief.mp3",
+    },
+  ]);
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -67,16 +67,16 @@ const MeditationPage = () => {
     }
   };
 
-//   useEffect(() => {
-//     const audio = new Audio(currentTrack?.audioUrl);
-//     if (isPlaying) {
-//       audio.play();
-//       audio.addEventListener("ended", () => setIsPlaying(false));
-//     } else {
-//       audio.pause();
-//     }
-//     return () => audio.pause();
-//   }, [isPlaying, currentTrack]);
+  useEffect(() => {
+    const audio = new Audio(currentTrack?.audioUrl);
+    if (isPlaying) {
+      audio.play();
+      audio.addEventListener("ended", () => setIsPlaying(false));
+    } else {
+      audio.pause();
+    }
+    return () => audio.pause();
+  }, [isPlaying, currentTrack]);
 
   return (
     <div className="p-6 bg-second-color min-h-screen">
