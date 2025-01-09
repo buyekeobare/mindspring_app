@@ -8,6 +8,7 @@ const ContactPage = lazy(() =>  import("./components/contact/ContactPage"));
 // features route added
 const FeaturesPage = lazy(() => import("./components/features/FeaturesPage"));
 const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"))
+const LoginPage = lazy(() => import("./components/login/LoginPage"));
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/meditation" element={<MeditationPage />} />
             <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/login" element={<LoginPage />} />
+
           </Routes>
         </Suspense>
       </LayoutPage>
