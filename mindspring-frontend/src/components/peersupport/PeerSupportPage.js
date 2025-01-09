@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const PeerSupportPage = () => {
   const [mood, setMood] = useState(""); // Selected mood
   const [isPublic, setIsPublic] = useState(false); // Mood visibility
-  const [activeChatType, setActiveChatType] = useState("one-on-one"); // Chat type selection
+  const [activeChatType, setActiveChatType] = useState("one-on-one"); // 
 
   // Emojis for mood tracking
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
