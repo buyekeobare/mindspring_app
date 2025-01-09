@@ -9,6 +9,7 @@ const ContactPage = lazy(() =>  import("./components/contact/ContactPage"));
 const FeaturesPage = lazy(() => import("./components/features/FeaturesPage"));
 const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"))
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
+const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
 
 const App = () => {
   return (
