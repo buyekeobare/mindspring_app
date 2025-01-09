@@ -5,6 +5,7 @@ import LayoutPage from "./components/layout/LayoutPage";
 const HomePage = lazy(() => import("./components/homepage/HomePage"));
 const AboutPage = lazy(() =>  import("./components/about/AboutPage"));
 const ContactPage = lazy(() =>  import("./components/contact/ContactPage"));
+const PeerSupportPage = lazy(() => import("./components/peersupport/PeerSupportPage")); 
 const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"))
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/features/peer-support" element={<PeerSupportPage />} />
             <Route path="/meditation" element={<MeditationPage />} /> 
           </Routes>
         </Suspense>

@@ -1,4 +1,8 @@
 /* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -7,6 +11,7 @@ body {
   /* Background color based on the first color */
 }
 
+/* Typography */
 h1,
 h2,
 h3 {
@@ -14,7 +19,20 @@ h3 {
   /* Fourth color for headings */
 }
 
-/* Tailwind custom utility classes for colors */
+/* Utility Classes */
+.sticky {
+  position: sticky;
+  top: 0;
+  /* Adjust top based on stacking */
+  z-index: 10;
+}
+
+.relative {
+  margin-top: calc(60px + 20px);
+  /* Example spacing for sticky headers */
+}
+
+/* Color Utilities */
 .first-color {
   background-color: #f5e1da;
 }
