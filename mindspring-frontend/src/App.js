@@ -22,7 +22,14 @@ const App = () => {
             <Route path="/meditation" element={<MeditationPage />} />
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/login" element={<LoginPage />} />
-
+            <Route
+              path="/features"
+              element={
+                <ProtectedRoute>
+                  <FeaturesPage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Suspense>
       </LayoutPage>
