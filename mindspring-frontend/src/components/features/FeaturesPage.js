@@ -75,7 +75,14 @@ const FeaturesPage = () => {
               </p>
             </div>
             {/* Feature 6 */}
-            
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-bold text-fourth-color mb-4">
+                Expert Advice
+              </h3>
+              <p className="text-gray-700">
+                Get insights from professionals to enhance your mental health strategies.
+              </p>
+            </div>
           </div>
         </div>
       </section>
