@@ -6,7 +6,7 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <div className="about-page">
+    <div className="about">
       {/* Hero Image Section */}
       <div className="relative h-[70vh]">
         <img
