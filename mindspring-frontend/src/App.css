@@ -8,7 +8,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f5e1da;
-  /* Background color based on the first color */
 }
 
 /* Typography */
@@ -16,20 +15,17 @@ h1,
 h2,
 h3 {
   color: #476268;
-  /* Fourth color for headings */
 }
 
 /* Utility Classes */
 .sticky {
   position: sticky;
   top: 0;
-  /* Adjust top based on stacking */
   z-index: 10;
 }
 
 .relative {
   margin-top: calc(60px + 20px);
-  /* Example spacing for sticky headers */
 }
 
 /* Color Utilities */
@@ -77,7 +73,6 @@ h3 {
 
 .form-button {
   background-color: #40a798;
-  /* Third color */
   color: #fff;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -88,8 +83,28 @@ h3 {
 
 .form-button:hover {
   background-color: #476268;
-  /* Fourth color*/
-}  
+}
+
+/* Contact Page Specific Styles */
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.contact-page h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #476268;
+}
+
+.contact-page img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
 
 .entries-list {
   max-height: 500px;
@@ -164,5 +179,4 @@ h3 {
 
 .read-more-button:hover {
   background-color: #476268;
-  /* Fourth color for hover */
 }
