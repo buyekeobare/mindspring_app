@@ -2,7 +2,7 @@ import React from "react";
 
 const ContactPage = () => {
     return (
-      <div id="contact" className="contact-page">
+      <div id="contact" className="contact">
         {/* Hero Image Section */}
         <div className="hero-image relative">
           <img
