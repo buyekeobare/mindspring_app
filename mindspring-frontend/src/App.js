@@ -7,7 +7,8 @@ const AboutPage = lazy(() =>  import("./components/about/AboutPage"));
 const ContactPage = lazy(() =>  import("./components/contact/ContactPage"));
 // features route added
 const FeaturesPage = lazy(() => import("./components/features/FeaturesPage"));
-const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"))
+const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"));
+const SignUpPage = lazy(() => import("./components/signup/SignUpPage"));
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
 const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
 
