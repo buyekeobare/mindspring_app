@@ -1,77 +1,96 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../App.css";
 
 const StressJournalingPage = () => {
   const [entries, setEntries] = useState([]);
+  const [filteredEntries, setFilteredEntries] = useState([]);
   const [formData, setFormData] = useState({ title: "", date: "", content: "" });
-  const [dateRange, setDateRange] = useState({ startDate: "", endDate: "" });
-  const [editMode, setEditMode] = useState(false);
+  const [searchDate, setSearchDate] = useState({ date: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [expandedEntries, setExpandedEntries] = useState({});
-  const today = new Date().toISOString().split("T")[0];
+  const entriesPerPage = 3;
+  const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
-    setFormData((prev) => ({ ...prev, date: today }));
-  }, [today]);
-
-  // Fetch entries by date range
-  const fetchFilteredEntries = async () => {
-    const query = new URLSearchParams(dateRange).toString();
-    const response = await fetch(`/api/journal-entries?${query}`);
-    const data = await response.json();
-    setEntries(data);
-  };
-
-  const handleDateRangeChange = (e) => {
-    const { name, value } = e.target;
-    setDateRange({ ...dateRange, [name]: value });
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    fetchFilteredEntries();
-  };
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-GB").split("/").join("/");
+    setFormData((prev) => ({ ...prev, date: formattedDate }));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSearchChange = (e) => {
+    const { name, value } = e.target;
+    setSearchDate({ ...searchDate, [name]: value });
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (editMode) {
-      // Update existing entry
+    if (isEditing) {
       setEntries((prevEntries) =>
         prevEntries.map((entry) =>
           entry.id === editId ? { ...entry, ...formData } : entry
         )
       );
-      setEditMode(false);
+      setFilteredEntries((prevEntries) =>
+        prevEntries.map((entry) =>
+          entry.id === editId ? { ...entry, ...formData } : entry
+        )
+      );
+      setIsEditing(false);
       setEditId(null);
     } else {
-      // Add new entry
-      const newEntry = { id: Date.now(), ...formData };
+      const newEntry = { id: Date.now(), ...formData, expanded: false };
       setEntries([...entries, newEntry]);
+      setFilteredEntries([...filteredEntries, newEntry]);
     }
-    setFormData({ title: "", date: today, content: "" });
+    setFormData({ title: "", date: new Date().toLocaleDateString("en-GB"), content: "" });
   };
 
-  const editEntry = (id) => {
-    const entryToEdit = entries.find((entry) => entry.id === id);
-    setFormData({ ...entryToEdit });
-    setEditMode(true);
-    setEditId(id);
-  };
-
-  const deleteEntry = (id) => {
-    setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const results = entries.filter((entry) => entry.date === searchDate.date);
+    setFilteredEntries(results);
+    setCurrentPage(1);
   };
 
   const toggleExpand = (id) => {
-    setExpandedEntries((prevExpanded) => ({
-      ...prevExpanded,
-      [id]: !prevExpanded[id],
-    }));
+    setFilteredEntries((prevEntries) =>
+      prevEntries.map((entry) =>
+        entry.id === id ? { ...entry, expanded: !entry.expanded } : entry
+      )
+    );
+  };
+
+  const handleEdit = (id) => {
+    const entryToEdit = entries.find((entry) => entry.id === id);
+    setFormData({
+      title: entryToEdit.title,
+      date: entryToEdit.date,
+      content: entryToEdit.content,
+    });
+    setIsEditing(true);
+    setEditId(id);
+  };
+
+  const handleDelete = (id) => {
+    setEntries(entries.filter((entry) => entry.id !== id));
+    setFilteredEntries(filteredEntries.filter((entry) => entry.id !== id));
+  };
+
+  const displayedEntries = filteredEntries.length > 0 ? filteredEntries : entries;
+  const paginatedEntries = displayedEntries.slice(
+    (currentPage - 1) * entriesPerPage,
+    currentPage * entriesPerPage
+  );
+
+  const goToAnalytics = () => {
+    navigate("/analytics");
   };
 
   return (
@@ -79,7 +98,6 @@ const StressJournalingPage = () => {
       <div className="stress-journal contact-page">
         <h1 className="text-fourth-color">Stress Journal</h1>
 
-        {/* Form to add or edit an entry */}
         <form onSubmit={handleFormSubmit} className="journal-form">
           <input
             type="text"
@@ -91,14 +109,15 @@ const StressJournalingPage = () => {
             required
           />
           <input
-            type="date"
+            type="text"
             name="date"
+            placeholder="Date (DD/MM/YYYY)"
             value={formData.date}
-            min={today}
-            max={today}
             onChange={handleChange}
             className="form-control"
             required
+            pattern="\d{2}/\d{2}/\d{4}"
+            title="Enter the date in DD/MM/YYYY format"
           />
           <textarea
             name="content"
@@ -109,60 +128,61 @@ const StressJournalingPage = () => {
             required
           ></textarea>
           <button type="submit" className="small-button">
-            {editMode ? "Update Entry" : "Add Entry"}
+            {isEditing ? "Update Entry" : "Add Entry"}
           </button>
         </form>
 
-        {/* Date Range Filter */}
-        <form onSubmit={handleSearchSubmit} className="date-range-form">
-          <div className="flex gap-4">
-            <input
-              type="date"
-              name="startDate"
-              value={dateRange.startDate}
-              onChange={handleDateRangeChange}
-              className="form-control"
-            />
-            <input
-              type="date"
-              name="endDate"
-              value={dateRange.endDate}
-              onChange={handleDateRangeChange}
-              className="form-control"
-            />
-          </div>
-          <button type="submit" className="small-button mt-2">Search</button>
+        <button onClick={goToAnalytics} className="small-button margin-top-lg">
+          View Analytics
+        </button>
+
+        <form onSubmit={handleSearchSubmit} className="search-form margin-top-lg">
+          <input
+            type="text"
+            name="date"
+            placeholder="Search Date (DD/MM/YYYY)"
+            value={searchDate.date}
+            onChange={handleSearchChange}
+            className="form-control"
+            required
+            pattern="\d{2}/\d{2}/\d{4}"
+            title="Enter the date in DD/MM/YYYY format"
+          />
+          <button type="submit" className="small-button">Search</button>
         </form>
 
-        {/* List of journal entries */}
         <div className="entries-list">
-          {entries.map((entry) => (
+          {paginatedEntries.map((entry) => (
             <div key={entry.id} className="entry-card second-color">
-              <h2 className="text-fourth-color">{entry.title}</h2>
+              <h2>{entry.title}</h2>
               <p>{entry.date}</p>
-              <p className="entry-content">
-                {expandedEntries[entry.id] || entry.content.length <= 100
+              <div className="entry-content">
+                {entry.expanded
                   ? entry.content
-                  : `${entry.content.substring(0, 100)}...`}
-              </p>
-              {entry.content.length > 100 && (
-                <button
-                  onClick={() => toggleExpand(entry.id)}
-                  className="small-button read-more-button"
-                >
-                  {expandedEntries[entry.id] ? "Read Less" : "Read More"}
-                </button>
-              )}
+                  : `${entry.content.slice(0, 100)}...`}
+              </div>
               <div className="entry-actions">
-                <button onClick={() => editEntry(entry.id)} className="small-button">
+                <button onClick={() => toggleExpand(entry.id)} className="small-button">
+                  {entry.expanded ? "Read Less" : "Read More"}
+                </button>
+                <button onClick={() => handleEdit(entry.id)} className="small-button">
                   Edit
                 </button>
-                <button onClick={() => deleteEntry(entry.id)} className="small-button">
+                <button onClick={() => handleDelete(entry.id)} className="small-button">
                   Delete
                 </button>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="pagination-controls">
+          {currentPage > 1 && (
+            <button onClick={() => setCurrentPage(currentPage - 1)}>Prev</button>
+          )}
+          {currentPage * entriesPerPage < displayedEntries.length && (
+            <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+          )}
         </div>
       </div>
     </div>
