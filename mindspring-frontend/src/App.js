@@ -1,8 +1,8 @@
 // importing react toastify
 import 'react-toastify/ReactToastify.css';
 import {ToastContainer } from 'react-toastify';
-import React, { Suspense, lazy, useContext } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LayoutPage from "./components/layout/LayoutPage";
 import './styles/App.css';
 
