@@ -13,16 +13,10 @@ const FeaturesPage = lazy(() => import("./components/features/FeaturesPage"));
 const SignUpPage = lazy(() => import("./components/signup/SignUpPage"))
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
 const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
-const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"));
-const SignUpPage = lazy(() => import("./components/signup/SignUpPage"));
-const LoginPage = lazy(() => import("./components/login/LoginPage"));
-const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
-
-const AboutPage = lazy(() => import("./components/about/AboutPage"));
-const ContactPage = lazy(() => import("./components/contact/ContactPage"));
 const PeerSupportPage = lazy(() => import("./components/peersupport/PeerSupportPage")); 
 const StressJournalingPage = lazy(() => import("./components/stressjournaling/StressJournalingPage")); 
 const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"));
+const AnalyticsPage = lazy(() => import("./components/analytics/AnalyticsPage"));
 
 const App = () => {
   return (
@@ -49,6 +43,7 @@ const App = () => {
             <Route path="/features/peer-support" element={<PeerSupportPage />} />
             <Route path="/features/stress-journaling" element={<StressJournalingPage />} />
             <Route path="/features/meditation" element={<MeditationPage />} /> 
+            <Route path="/analytics" element={<AnalyticsPage />} />
           </Routes>
         </Suspense>
       </LayoutPage>
