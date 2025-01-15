@@ -4,6 +4,7 @@ import {ToastContainer } from 'react-toastify';
 import React, { Suspense, lazy, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LayoutPage from "./components/layout/LayoutPage";
+import './styles/App.css';
 
 // Lazy load pages
 const HomePage = lazy(() => import("./components/homepage/HomePage"));
