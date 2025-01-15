@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const [credentials, setCredentials] = useState({
@@ -17,6 +18,12 @@ const SignUpPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (credentials.password !== credentials.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:5000/signup", {
         method: "POST",
@@ -24,18 +31,18 @@ const SignUpPage = () => {
         body: JSON.stringify(credentials),
       });
       const data = await response.json();
+
       if (response.ok) {
-        alert("Registration successful!");
+        toast.success("Registration successful!");
         navigate("/login");
       } else {
-        alert(data.error);
+        toast.error(data.error || "Signup failed!");
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("An error occurred.");
+      toast.error("An error occurred. Please try again.");
     }
   };
-  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -119,5 +126,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
-
