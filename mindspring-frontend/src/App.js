@@ -1,13 +1,18 @@
-import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// importing react toastify
+import 'react-toastify/ReactToastify.css';
+import {ToastContainer } from 'react-toastify';
+import React, { Suspense, lazy, useContext } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LayoutPage from "./components/layout/LayoutPage";
 
 // Lazy load pages
 const HomePage = lazy(() => import("./components/homepage/HomePage"));
-const AboutPage = lazy(() =>  import("./components/about/AboutPage"));
-const ContactPage = lazy(() =>  import("./components/contact/ContactPage"));
-// features route added
+const AboutPage = lazy(() => import("./components/about/AboutPage"));
+const ContactPage = lazy(() => import("./components/contact/ContactPage"));
 const FeaturesPage = lazy(() => import("./components/features/FeaturesPage"));
+const SignUpPage = lazy(() => import("./components/signup/SignUpPage"))
+const LoginPage = lazy(() => import("./components/login/LoginPage"));
+const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
 const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"));
 const SignUpPage = lazy(() => import("./components/signup/SignUpPage"));
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
@@ -21,7 +26,8 @@ const MeditationPage = lazy(() => import("./components/meditation/MeditationPage
 
 const App = () => {
   return (
-    <Router>
+    <>
+      <Router>
       <LayoutPage>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
@@ -47,6 +53,9 @@ const App = () => {
         </Suspense>
       </LayoutPage>
     </Router>
+    <ToastContainer/>
+    </>
+    
   );
 };
 
