@@ -28,6 +28,8 @@ const AnalyticsPage = () => {
   const chartRef = useRef(null); // Ref to manage the chart instance
 
   useEffect(() => {
+    let chartInstance = chartRef.current; // Copy ref to a local variable
+
     // Fetch trends data from the backend
     fetch("http://localhost:5000/api/analytics/trends", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -37,13 +39,12 @@ const AnalyticsPage = () => {
       .catch((error) => console.error("Error fetching analytics data:", error));
 
     return () => {
-      // Cleanup function: Destroy the chart instance if it exists
-      const chartInstance = chartRef.current;
+      // Cleanup function: Destroy the chart instance safely
       if (chartInstance) {
         chartInstance.destroy();
       }
     };
-  }, []);
+  }, []); // Dependency array is empty since the effect runs only once
 
   if (!data) {
     return <div>Loading...</div>;
@@ -57,8 +58,8 @@ const AnalyticsPage = () => {
         label: "Stress Levels Over Time",
         data: data.map((entry) => entry.stressLevel), // Map stress levels
         fill: false,
-        backgroundColor: "fourth-color",
-        borderColor: "third-color",
+        backgroundColor: "#476268",
+        borderColor: "#40a798",
       },
     ],
   };
