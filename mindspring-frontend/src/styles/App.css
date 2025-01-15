@@ -1,4 +1,4 @@
-/* Tailwind-Compatible Global Styles */
+/* Global Styles */
 html {
   scroll-behavior: smooth;
 }
@@ -7,61 +7,127 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  @apply bg-first-color;
+  background-color: #f5e1da;
+  /* Background color based on the first color */
 }
 
 /* Typography */
 h1,
 h2,
 h3 {
-  @apply text-fourth-color;
+  color: #476268;
+}
+
+/* Utility Classes */
+.sticky {
+  position: sticky;
+  top: 0;
+  /* Adjust top based on stacking */
+  z-index: 10;
 }
 
 .relative {
   margin-top: calc(60px + 20px);
+  /* Example spacing for sticky headers */
+}
+
+/* Color Utilities */
+.first-color {
+  background-color: #f5e1da;
+}
+
+.second-color {
+  background-color: #f1f1f1;
+}
+
+.third-color {
+  background-color: #40a798;
+}
+
+.fourth-color {
+  background-color: #476268;
+}
+
+.text-fourth-color {
+  color: #476268;
+}
+
+.text-third-color {
+  color: #40a798;
 }
 
 /* Spacing Utilities */
 .margin-top-sm {
-  @apply mt-4;
+  margin-top: 1rem;
 }
 
 .margin-top-lg {
-  @apply mt-8;
+  margin-top: 2rem;
 }
 
 /* Shared Form Styles */
 .form-control {
-  @apply w-full p-3 border border-gray-300 rounded-lg mb-4;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .form-button {
-  @apply bg-third-color text-white py-3 px-6 rounded-lg cursor-pointer transition ease-in-out;
+  background-color: #40a798;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .form-button:hover {
-  @apply bg-fourth-color;
+  background-color: #476268;
 }
 
 /* Contact Page Specific Styles */
 .contact-page {
-  @apply flex flex-col items-center py-8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
 }
 
 .contact-page h1 {
-  @apply text-4xl text-center mb-4 text-fourth-color;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #476268;
 }
 
 .contact-page img {
-  @apply w-full h-auto mb-6;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
 }
 
 .entries-list {
-  @apply max-h-[500px] overflow-y-auto p-4 border border-gray-300 rounded-lg;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .entry-card {
-  @apply p-4 rounded-lg mb-4 bg-gray-100 shadow-md;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.entry-card h2 {
+  margin-bottom: 0.5rem;
+  color: #444;
 }
 
 .entry-content {
@@ -69,26 +135,41 @@ h3 {
   overflow: hidden;
 }
 
-.read-more-button {
-  @apply mt-2 text-sm bg-third-color text-white rounded-md px-3 py-2 cursor-pointer transition ease-in-out;
-}
-
-.read-more-button:hover {
-  @apply bg-fourth-color;
-}
-
-.entry-card h2 {
-  @apply mb-2 text-gray-700;
-}
-
 .entry-actions {
-  @apply flex justify-end gap-2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .small-button {
-  @apply text-sm px-3 py-2 mb-1 bg-third-color text-white rounded-md cursor-pointer transition ease-in-out;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  margin: 0.3rem;
+  background-color: #40a798;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .small-button:hover {
-  @apply bg-fourth-color;
+  background-color: #476268;
+}
+
+.read-more-button {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  background-color: #40a798;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.read-more-button:hover {
+  background-color: #476268;
+  /* Fourth color for hover */
 }
