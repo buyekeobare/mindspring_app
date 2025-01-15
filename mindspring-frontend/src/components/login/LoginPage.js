@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
+// toast notification
+import { toast } from "react-toastify";
 
 
 const LoginPage = () => {
@@ -17,13 +19,14 @@ const LoginPage = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.token);
+        toast.success("Login successful!");
         navigate("/features")
       } else {
-        alert(data.error);
+        toast.error(data.error || "Invalid credentials. Please try again.");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred.");
+      toast.error("An error occurred. Please try again.");
     }
   };
   
