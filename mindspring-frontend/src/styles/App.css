@@ -17,11 +17,6 @@ h3 {
   @apply text-fourth-color;
 }
 
-/* Utility Classes */
-.sticky {
-  @apply sticky top-0 z-10;
-}
-
 .relative {
   margin-top: calc(60px + 20px);
 }

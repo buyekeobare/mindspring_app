@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles/App.css";
+import "../../styles/App.css";
 
 const StressJournalingPage = () => {
   const [entries, setEntries] = useState([]);
