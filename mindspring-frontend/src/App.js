@@ -1,4 +1,5 @@
 // importing react toastify
+// updated
 import 'react-toastify/ReactToastify.css';
 import {ToastContainer } from 'react-toastify';
 import React, { Suspense, lazy } from "react";
