@@ -30,4 +30,21 @@ router.post('/', (req, res) => {
   });
 });
 
+// Get chart data for analytics
+router.get('/chart-data', (req, res) => {
+  const db = connectDB();
+  db.all(
+    `SELECT event, COUNT(*) as count FROM analytics GROUP BY event`,
+    [],
+    (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.json(rows); // Example: [{ event: 'high stress', count: 10 }, ...]
+      }
+      db.close();
+    }
+  );
+});
+
 module.exports = router;
