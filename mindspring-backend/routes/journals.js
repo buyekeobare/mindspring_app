@@ -60,9 +60,6 @@ router.get("/search", auth, (req, res) => {
       if (err) {
         return res.status(500).json({ error: "Database error." });
       }
-      if (rows.length === 0) {
-        return res.status(404).json({ message: "No entries found for the specified date." });
-      }
       res.json(rows);
     }
   );
@@ -110,3 +107,4 @@ router.delete("/:id", auth, (req, res) => {
 });
 
 module.exports = router;
+
