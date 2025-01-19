@@ -37,6 +37,37 @@ router.get("/", auth, (req, res) => {
   );
 });
 
+// Search journal entries by date
+router.get("/search", auth, (req, res) => {
+  const { date } = req.query;
+
+  if (!date) {
+    return res.status(400).json({ error: "Date query parameter is required." });
+  }
+
+  // Validate date format
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(date)) {
+    return res.status(400).json({ error: "Invalid date format. Use YYYY-MM-DD." });
+  }
+
+  const userId = req.user.id;
+
+  db.all(
+    "SELECT * FROM journal_entries WHERE user_id = ? AND date = ?",
+    [userId, date],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: "Database error." });
+      }
+      if (rows.length === 0) {
+        return res.status(404).json({ message: "No entries found for the specified date." });
+      }
+      res.json(rows);
+    }
+  );
+});
+
 // Update a journal entry
 router.put("/:id", auth, validateJournal, (req, res) => {
   const { id } = req.params;
