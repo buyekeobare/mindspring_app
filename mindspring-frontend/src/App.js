@@ -1,28 +1,28 @@
-import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// importing react toastify
+import 'react-toastify/ReactToastify.css';
+import {ToastContainer } from 'react-toastify';
+import React, { Suspense, lazy, useContext } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LayoutPage from "./components/layout/LayoutPage";
 
 const HomePage = lazy(() => import("./components/homepage/HomePage"));
-const AboutPage = lazy(() =>  import("./components/about/AboutPage"));
-const ContactPage = lazy(() =>  import("./components/contact/ContactPage"));
-// features route added
+const AboutPage = lazy(() => import("./components/about/AboutPage"));
+const ContactPage = lazy(() => import("./components/contact/ContactPage"));
 const FeaturesPage = lazy(() => import("./components/features/FeaturesPage"));
-const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"));
-const SignUpPage = lazy(() => import("./components/signup/SignUpPage"));
+const SignUpPage = lazy(() => import("./components/signup/SignUpPage"))
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
 const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
 
 const App = () => {
   return (
-    <Router>
+    <>
+      <Router>
       <LayoutPage>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/meditation" element={<MeditationPage />} />
-            <Route path="/features" element={<FeaturesPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
@@ -37,6 +37,9 @@ const App = () => {
         </Suspense>
       </LayoutPage>
     </Router>
+    <ToastContainer/>
+    </>
+    
   );
 };
 
