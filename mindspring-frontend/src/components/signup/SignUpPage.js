@@ -10,7 +10,7 @@ const SignUpPage = () => {
     confirmPassword: "",
   });
   const navigate = useNavigate();
-
+// update
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });

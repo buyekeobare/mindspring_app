@@ -1,4 +1,5 @@
 // importing react toastify
+// updated
 import 'react-toastify/ReactToastify.css';
 import {ToastContainer } from 'react-toastify';
 import React, { Suspense, lazy } from "react";
@@ -29,8 +30,6 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/meditation" element={<MeditationPage />} />
-            <Route path="/features" element={<FeaturesPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
