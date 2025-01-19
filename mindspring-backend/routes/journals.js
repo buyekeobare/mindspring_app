@@ -2,9 +2,10 @@ const express = require("express");
 const db = require("../config/db");
 const router = express.Router();
 const auth = require("../middleware/auth"); // JWT middleware
+const validateJournal = require("../middleware/validateJournals"); // Validation middleware
 
 // Create a new journal entry
-router.post("/", auth, (req, res) => {
+router.post("/", auth, validateJournal, (req, res) => {
   const { date, content } = req.body;
   const userId = req.user.id;
 
@@ -37,7 +38,7 @@ router.get("/", auth, (req, res) => {
 });
 
 // Update a journal entry
-router.put("/:id", auth, (req, res) => {
+router.put("/:id", auth, validateJournal, (req, res) => {
   const { id } = req.params;
   const { date, content } = req.body;
   const userId = req.user.id;
