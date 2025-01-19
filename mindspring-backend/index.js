@@ -10,12 +10,12 @@ const PORT = 5000;
 const SECRET_KEY = "JWT_SECRET";
 
 // Middleware
+// cors middleware
 app.use(bodyParser.json());
 app.use(cors());
 
 // Database Setup 
-// db
-// new db
+// db resolve
 const db = new sqlite3.Database("./mindspring.db", (err) => {
   if (err) {
     console.error("Error connecting to database:", err.message);
