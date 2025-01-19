@@ -8,7 +8,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f5e1da;
-  /* Background color based on the first color */
 }
 
 /* Typography */
@@ -22,13 +21,12 @@ h3 {
 .sticky {
   position: sticky;
   top: 0;
-  /* Adjust top based on stacking */
   z-index: 10;
 }
 
 .relative {
   margin-top: calc(60px + 20px);
-  /* Example spacing for sticky headers */
+  /* spacing for sticky headers */
 }
 
 /* Color Utilities */
@@ -161,6 +159,7 @@ h3 {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   background-color: #40a798;
+
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -171,5 +170,4 @@ h3 {
 
 .read-more-button:hover {
   background-color: #476268;
-  /* Fourth color for hover */
 }
