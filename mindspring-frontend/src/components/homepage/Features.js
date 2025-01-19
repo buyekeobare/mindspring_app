@@ -1,5 +1,5 @@
 import React from "react";
-import { FaLeaf, FaPenAlt, FaComments } from "react-icons/fa"; 
+import { FaLeaf, FaPenAlt, FaComments } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Features = () => {
@@ -7,48 +7,52 @@ const Features = () => {
 
   const featuresList = [
     {
-      icon: <FaLeaf />,
-      title: "Meditation",
-      description:
-        "Enhance your mindfulness with meditation exercises designed to fit seamlessly into your daily routine.",
-    },
-    {
-      icon: <FaLeaf />,
-      title: "Guided Meditation",
-      description:
-        "Experience inner peace with our expert-guided meditation sessions tailored to relax your mind and body.",
-    },
-    {
-      icon: <FaPenAlt />, 
-      title: "Stress Journaling",
-      description:
-        "Manage stress by documenting your thoughts and feelings in a private and structured journaling space.",
-    },
-    {
       icon: <FaComments />,
       title: "Peer Support",
       description:
-        "Connect with like-minded individuals, share experiences, and foster growth through meaningful conversations.",
+        "Connect with like-minded individuals, share experiences, and foster growth through meaningful conversations. Includes a mood tracker to set the tone for your chats.",
+      route: "/features/peer-support",
+    },
+    {
+      icon: <FaPenAlt />,
+      title: "Stress Journaling",
+      description:
+        "Manage stress by documenting your thoughts and feelings in a private and structured journaling space.",
+      route: "/features/stress-journaling",
+    },
+    {
+      icon: <FaLeaf />,
+      title: "Meditation Hub",
+      description:
+        "Enhance your mindfulness with a meditation timer and guided meditation exercises designed for relaxation.",
+      route: "/features/meditation",
     },
   ];
 
   return (
-    <section id="features" className="features-section bg-second-color py-12 px-6">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-fourth-color mb-6">Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section
+      id="features"
+      className="features-section bg-second-color py-12 px-6 scroll-mt-[120px]"
+    >
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-4xl font-bold text-center text-fourth-color mb-12">
+          Explore Our Key Features
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuresList.map((feature, index) => (
             <div
               key={index}
-              className="feature-item bg-second-color shadow-md rounded-lg p-6 text-center transition-transform duration-300 transform hover:-translate-y-2 hover:bg-third-color"
+              className="feature-item bg-white shadow-lg rounded-lg p-8 text-center transition-transform duration-300 transform hover:-translate-y-2 hover:bg-third-color hover:shadow-xl"
+              onClick={() => navigate(feature.route)}
+              style={{ cursor: "pointer" }}
             >
-              <div className="feature-icon text-fourth-color text-4xl mb-4 transition-colors duration-300 hover:text-second-color">
+              <div className="feature-icon text-third-color text-5xl mb-6 transition-colors duration-300 hover:text-white">
                 {feature.icon}
               </div>
-              <h3 className="feature-title text-xl font-semibold text-fourth-color mb-2 transition-colors duration-300 hover:text-second-color">
+              <h3 className="feature-title text-2xl font-semibold text-fourth-color mb-4 transition-colors duration-300 hover:text-white">
                 {feature.title}
               </h3>
-              <p className="feature-description text-fourth-color hover:text-first-color transition-colors duration-300">
+              <p className="feature-description text-gray-600 transition-colors duration-300 hover:text-white">
                 {feature.description}
               </p>
             </div>
