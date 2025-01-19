@@ -15,6 +15,7 @@ app.use(cors());
 
 // Database Setup 
 // db
+// new db
 const db = new sqlite3.Database("./mindspring.db", (err) => {
   if (err) {
     console.error("Error connecting to database:", err.message);
