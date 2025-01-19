@@ -1,9 +1,37 @@
 import React, { useEffect } from "react";
+import { FaLeaf, FaPenAlt, FaComments } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const FeaturesPage = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0); // Ensures the page scrolls to the top on load
   }, []);
+
+  const featuresList = [
+    {
+      icon: <FaComments />,
+      title: "Peer Support",
+      description:
+        "Connect with like-minded individuals, share experiences, and foster growth through meaningful conversations. Includes a mood tracker to set the tone for your chats.",
+      route: "/features/peer-support",
+    },
+    {
+      icon: <FaPenAlt />,
+      title: "Stress Journaling",
+      description:
+        "Manage stress by documenting your thoughts and feelings in a private and structured journaling space.",
+      route: "/features/stress-journaling",
+    },
+    {
+      icon: <FaLeaf />,
+      title: "Meditation Hub",
+      description:
+        "Enhance your mindfulness with a meditation timer and guided meditation exercises designed for relaxation.",
+      route: "/features/meditation",
+    },
+  ];
 
   return (
     <div className="features-page">
@@ -23,66 +51,33 @@ const FeaturesPage = () => {
       </div>
 
       {/* Features Section */}
-      <section className="py-12 bg-gray-100">
-        <div className="container mx-auto max-w-7xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-            What Mindspring Offers
+      <section
+        id="features"
+        className="features-section bg-second-color py-12 px-6 scroll-mt-[120px]"
+      >
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-bold text-center text-fourth-color mb-12">
+            Explore Our Key Features
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-fourth-color mb-4">
-                Guided Meditation
-              </h3>
-              <p className="text-gray-700">
-                Access a variety of guided meditations to help you relax, focus, and recharge.
-              </p>
-            </div>
-            {/* Feature 2 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-fourth-color mb-4">
-                Personalized Audio Therapy
-              </h3>
-              <p className="text-gray-700">
-                Discover tailored audio therapy sessions to suit your mental wellness needs.
-              </p>
-            </div>
-            {/* Feature 3 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-fourth-color mb-4">
-                Community Support
-              </h3>
-              <p className="text-gray-700">
-                Connect with like-minded individuals in our supportive community space.
-              </p>
-            </div>
-            {/* Feature 4 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-fourth-color mb-4">
-                Mental Wellness Resources
-              </h3>
-              <p className="text-gray-700">
-                Explore an extensive library of resources to guide your wellness journey.
-              </p>
-            </div>
-            {/* Feature 5 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-fourth-color mb-4">
-                Progress Tracking
-              </h3>
-              <p className="text-gray-700">
-                Monitor your growth and set achievable goals with our tracking tools.
-              </p>
-            </div>
-            {/* Feature 6 */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-fourth-color mb-4">
-                Expert Advice
-              </h3>
-              <p className="text-gray-700">
-                Get insights from professionals to enhance your mental health strategies.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {featuresList.map((feature, index) => (
+              <div
+                key={index}
+                className="feature-item bg-white shadow-lg rounded-lg p-8 text-center transition-transform duration-300 transform hover:-translate-y-2 hover:bg-third-color hover:shadow-xl"
+                onClick={() => navigate(feature.route)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="feature-icon text-third-color text-5xl mb-6 transition-colors duration-300 hover:text-white">
+                  {feature.icon}
+                </div>
+                <h3 className="feature-title text-2xl font-semibold text-fourth-color mb-4 transition-colors duration-300 hover:text-white">
+                  {feature.title}
+                </h3>
+                <p className="feature-description text-gray-600 transition-colors duration-300 hover:text-white">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -91,4 +86,3 @@ const FeaturesPage = () => {
 };
 
 export default FeaturesPage;
-
