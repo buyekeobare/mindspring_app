@@ -24,6 +24,13 @@ h3 {
   z-index: 10;
 }
 
+.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+}
+
 .relative {
   margin-top: calc(60px + 20px);
   /* spacing for sticky headers */
@@ -169,5 +176,40 @@ h3 {
 }
 
 .read-more-button:hover {
+  background-color: #476268;
+}
+
+/* UpperToolbar Specific Styles */
+.upper-toolbar {
+  background-color: #476268;
+  color: #f5e1da;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upper-toolbar a,
+.upper-toolbar button {
+  color: #f5e1da;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.upper-toolbar a:hover,
+.upper-toolbar button:hover {
+  background-color: #40a798;
+  color: #fff;
+}
+
+.upper-toolbar .bg-third-color {
+  background-color: #40a798;
+  color: #fff;
+}
+
+.upper-toolbar .bg-third-color:hover {
   background-color: #476268;
 }
