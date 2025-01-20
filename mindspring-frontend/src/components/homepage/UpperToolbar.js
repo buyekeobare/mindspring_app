@@ -15,7 +15,6 @@ const UpperToolbar = () => {
   return (
     <div className="bg-fourth-color text-first-color fixed top-0 w-full z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
-        {/* Left side with Home button */}
         <div>
           <button
             onClick={() => handleNavigation("/")}
@@ -24,8 +23,6 @@ const UpperToolbar = () => {
             Home
           </button>
         </div>
-
-        {/* Right side with links */}
         <div className="flex space-x-6 text-sm md:text-base items-center">
           <Link to="/about" className="hover:text-second-color">
             About
@@ -49,6 +46,3 @@ const UpperToolbar = () => {
 };
 
 export default UpperToolbar;
-
-
-
