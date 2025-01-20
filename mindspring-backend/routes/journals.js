@@ -2,9 +2,10 @@ const express = require("express");
 const db = require("../config/db");
 const router = express.Router();
 const auth = require("../middleware/auth"); // JWT middleware
+const validateJournal = require("../middleware/validateJournals"); // Validation middleware
 
 // Create a new journal entry
-router.post("/", auth, (req, res) => {
+router.post("/", auth, validateJournal, (req, res) => {
   const { date, content } = req.body;
   const userId = req.user.id;
 
@@ -36,8 +37,36 @@ router.get("/", auth, (req, res) => {
   );
 });
 
+// Search journal entries by date
+router.get("/search", auth, (req, res) => {
+  const { date } = req.query;
+
+  if (!date) {
+    return res.status(400).json({ error: "Date query parameter is required." });
+  }
+
+  // Validate date format
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(date)) {
+    return res.status(400).json({ error: "Invalid date format. Use YYYY-MM-DD." });
+  }
+
+  const userId = req.user.id;
+
+  db.all(
+    "SELECT * FROM journal_entries WHERE user_id = ? AND date = ?",
+    [userId, date],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: "Database error." });
+      }
+      res.json(rows);
+    }
+  );
+});
+
 // Update a journal entry
-router.put("/:id", auth, (req, res) => {
+router.put("/:id", auth, validateJournal, (req, res) => {
   const { id } = req.params;
   const { date, content } = req.body;
   const userId = req.user.id;
@@ -78,3 +107,4 @@ router.delete("/:id", auth, (req, res) => {
 });
 
 module.exports = router;
+
