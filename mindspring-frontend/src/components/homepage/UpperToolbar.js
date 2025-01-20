@@ -15,25 +15,18 @@ const UpperToolbar = () => {
   return (
     <div className="bg-fourth-color text-first-color sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
-        {/* Left side with Sign Up */}
+        {/* Left side with Home button */}
         <div>
-          <Link
-            to="/login"
-            className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
+          <button
+            onClick={() => handleNavigation("/")}
+            className="hover:text-second-color text-white font-semibold"
           >
-            Login
-          </Link>
+            Home
+          </button>
         </div>
 
         {/* Right side with links */}
         <div className="flex space-x-6 text-sm md:text-base items-center">
-          {/* Smooth scroll for home page sections */}
-          <button
-            onClick={() => handleNavigation("/")}
-            className="hover:text-second-color"
-          >
-            Home
-          </button>
           <Link to="/about" className="hover:text-second-color">
             About
           </Link>
