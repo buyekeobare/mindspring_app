@@ -30,9 +30,12 @@ const UpperToolbar = () => {
           <Link to="/about" className="hover:text-second-color">
             About
           </Link>
-          <Link to="/features" className="hover:text-second-color">
+          <button
+            onClick={() => handleNavigation("features")}
+            className="hover:text-second-color"
+          >
             Features
-          </Link>
+          </button>
           <Link
             to="/contact"
             className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
@@ -46,3 +49,4 @@ const UpperToolbar = () => {
 };
 
 export default UpperToolbar;
+
