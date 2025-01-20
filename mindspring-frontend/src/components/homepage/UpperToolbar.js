@@ -13,7 +13,7 @@ const UpperToolbar = () => {
   };
 
   return (
-    <div className="bg-fourth-color text-first-color sticky top-0 z-50 shadow-md">
+    <div className="bg-fourth-color text-first-color fixed top-0 w-full z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
         {/* Left side with Home button */}
         <div>
@@ -49,5 +49,6 @@ const UpperToolbar = () => {
 };
 
 export default UpperToolbar;
+
 
 
