@@ -19,7 +19,7 @@ const UpperToolbar = () => {
         <div>
           <button
             onClick={() => handleNavigation("/")}
-            className="hover:text-second-color text-white font-semibold"
+            className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color font-semibold"
           >
             Home
           </button>
@@ -49,4 +49,5 @@ const UpperToolbar = () => {
 };
 
 export default UpperToolbar;
+
 
