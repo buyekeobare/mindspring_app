@@ -13,8 +13,10 @@ const Navbar = () => {
       const section = document.querySelector(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.warn(`Section ${sectionId} not found`);
       }
-    }, 100); // Delay to ensure HomePage is loaded
+    }, 100);
   };
 
   return (
@@ -25,7 +27,7 @@ const Navbar = () => {
           <img
             src="/assets/mindspring-logo.png"
             alt="Mindspring Logo"
-            className="h-10"
+            className="h-10 logo hover:scale-105 transition-transform duration-300"
           />
           <span className="text-xl font-bold text-fourth-color">Mindspring</span>
         </div>
@@ -33,12 +35,14 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div className="flex space-x-6 text-sm md:text-base">
           <button
+            aria-label="Scroll to Daily Affirmation section"
             className="text-fourth-color hover:text-third-color"
             onClick={() => scrollToSection("#daily-affirmation")}
           >
             Daily Affirmation
           </button>
           <button
+            aria-label="Scroll to Resource Center section"
             className="text-fourth-color hover:text-third-color"
             onClick={() => scrollToSection("#resource-center")}
           >
