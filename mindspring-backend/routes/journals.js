@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("../config/db");
 const router = express.Router();
-const auth = require("../middleware/auth"); // JWT middleware
 const validateJournal = require("../middleware/validateJournals"); // Validation middleware
 
 // Create a new journal entry
@@ -107,4 +106,3 @@ router.delete("/:id", auth, (req, res) => {
 });
 
 module.exports = router;
-
