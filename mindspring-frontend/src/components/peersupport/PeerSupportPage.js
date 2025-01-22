@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { io } from "socket.io-client";
+
 
 const PeerSupportPage = () => {
   const [mood, setMood] = useState(""); // Selected mood
   const [isPublic, setIsPublic] = useState(false); // Mood visibility
-  const [activeChatType, setActiveChatType] = useState("one-on-one"); // 
+  const [activeChatType, setActiveChatType] = useState("one-on-one");
+  const [messages, setMessages] = useState([]); //Stores Chat
+  const [message, setMessage] = useState(""); //Stores user inputs
 
   // Emojis for mood tracking
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
+
+  const socket = io("http://localhost:5000")
+
+  useEffect(() => {
+    socket.on('receiveMessage', (newMessage) => {
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    return () => {
+      socket.off('receiveMessage');
+    };
+  }, []);
 
   const handleMoodSelection = (selectedMood) => {
     setMood(selectedMood);
@@ -19,6 +35,14 @@ const PeerSupportPage = () => {
 
   const handleChatTypeSwitch = (type) => {
     setActiveChatType(type);
+  };
+
+  const sendMessage = () => {
+    if (message.trim()) {
+      const socket = io("http://localhost:5000")
+      socket.emit("sendMessage", message);
+      setMessage("");
+    }
   };
 
   return (
@@ -86,15 +110,28 @@ const PeerSupportPage = () => {
         <h2 className="text-lg font-bold text-fourth-color">
           {activeChatType === "one-on-one" ? "One-on-One Chat" : "Group Chat"}
         </h2>
-        <div className="chat-box mt-4 p-4 bg-second-color rounded-lg h-64">
-          <p className="text-center text-gray-500">Chat content goes here...</p>
+        <div className="chat-box mt-4 p-4 bg-second-color rounded-lg h-64 overflow-auto">
+          {messages.length > 0 ? (
+            messages.map((msg, index) => (
+              <p key={index} className="p-2 bg-white shadow rounded my-2">
+                {msg}
+              </p>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No messages yet...</p>
+          )}
         </div>
         <div className="mt-4">
           <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a message..."
             className="w-full p-2 border rounded"
           ></textarea>
-          <button className="mt-2 px-4 py-2 bg-third-color text-white rounded">
+          <button
+            onClick={sendMessage}
+            className="mt-2 px-4 py-2 bg-third-color text-white rounded"
+          >
             Send
           </button>
         </div>

@@ -4,8 +4,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const http = require("http");
+const createWebSocket = require("./routes/chat");
 
 const app = express();
+const server = http.createServer(app);
 const PORT = 5000;
 const SECRET_KEY = "JWT_SECRET";
 
@@ -13,8 +16,11 @@ const SECRET_KEY = "JWT_SECRET";
 // cors middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 
-// Database Setup 
+createWebSocket(server);
+
+// Database Setup
 // db resolve
 const db = new sqlite3.Database("./mindspring.db", (err) => {
   if (err) {
@@ -178,6 +184,6 @@ app.delete("/journal/:id", authenticateToken, (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
