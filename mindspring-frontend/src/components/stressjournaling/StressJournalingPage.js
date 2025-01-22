@@ -14,9 +14,20 @@ const StressJournalingPage = () => {
   const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString("en-GB").split("/").join("/");
-    setFormData((prev) => ({ ...prev, date: formattedDate }));
+    const fetchEntries = async () => {
+      try {
+        const response = await fetch("/api/entries");
+        if (!response.ok) {
+          throw new Error("Failed to fetch entries");
+        }
+        const data = await response.json();
+        setEntries(data);
+        setFilteredEntries(data);
+      } catch (error) {
+        console.error("Error loading entries:", error);
+      }
+    };
+    fetchEntries();
   }, []);
 
   const handleChange = (e) => {
@@ -29,27 +40,42 @@ const StressJournalingPage = () => {
     setSearchDate({ ...searchDate, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (isEditing) {
-      setEntries((prevEntries) =>
-        prevEntries.map((entry) =>
-          entry.id === editId ? { ...entry, ...formData } : entry
-        )
-      );
-      setFilteredEntries((prevEntries) =>
-        prevEntries.map((entry) =>
-          entry.id === editId ? { ...entry, ...formData } : entry
-        )
-      );
-      setIsEditing(false);
-      setEditId(null);
-    } else {
-      const newEntry = { id: Date.now(), ...formData, expanded: false };
-      setEntries([...entries, newEntry]);
-      setFilteredEntries([...filteredEntries, newEntry]);
+    try {
+      if (isEditing) {
+        const updatedEntry = { title: formData.title, date: formData.date, content: formData.content };
+        const response = await fetch(`/api/entries/${editId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedEntry),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to update entry");
+        }
+        const data = await response.json();
+        setEntries((prev) => prev.map((entry) => (entry.id === editId ? data : entry)));
+        setFilteredEntries((prev) => prev.map((entry) => (entry.id === editId ? data : entry)));
+        setIsEditing(false);
+        setEditId(null);
+      } else {
+        const newEntry = { title: formData.title, date: formData.date, content: formData.content };
+        const response = await fetch("/api/entries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newEntry),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to create entry");
+        }
+        const data = await response.json();
+        setEntries([...entries, data]);
+        setFilteredEntries([...filteredEntries, data]);
+      }
+      setFormData({ title: "", date: new Date().toLocaleDateString("en-GB"), content: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
-    setFormData({ title: "", date: new Date().toLocaleDateString("en-GB"), content: "" });
   };
 
   const handleSearchSubmit = (e) => {
@@ -78,9 +104,17 @@ const StressJournalingPage = () => {
     setEditId(id);
   };
 
-  const handleDelete = (id) => {
-    setEntries(entries.filter((entry) => entry.id !== id));
-    setFilteredEntries(filteredEntries.filter((entry) => entry.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/entries/${id}`, { method: "DELETE" });
+      if (!response.ok) {
+        throw new Error("Failed to delete entry");
+      }
+      setEntries((prev) => prev.filter((entry) => entry.id !== id));
+      setFilteredEntries((prev) => prev.filter((entry) => entry.id !== id));
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    }
   };
 
   const displayedEntries = filteredEntries.length > 0 ? filteredEntries : entries;
