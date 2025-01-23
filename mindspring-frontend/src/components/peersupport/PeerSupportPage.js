@@ -24,7 +24,7 @@ const PeerSupportPage = () => {
     };
   }, []);
 
-  //const handleMoodSelection = (selectedMood) => {
+  const handleMoodSelection = (selectedMood) => {
     setMood(selectedMood);
     console.log("Mood selected:", selectedMood);
   };
