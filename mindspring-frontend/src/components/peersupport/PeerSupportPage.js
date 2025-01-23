@@ -10,7 +10,7 @@ const PeerSupportPage = () => {
   const userId = useState(() => Math.floor(Math.random() * 1000));
 
   // Emojis for mood tracking
-  const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
+  //const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
 
   const socket = io("http://localhost:5000")
 
