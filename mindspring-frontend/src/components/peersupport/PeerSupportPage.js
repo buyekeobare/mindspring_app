@@ -114,5 +114,5 @@ const PeerSupportPage = () => {
   );
 };
 
-//export default PeerSupportPage;
+export default PeerSupportPage;
 
