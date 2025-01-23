@@ -33,10 +33,6 @@ const PeerSupportPage = () => {
     setIsPublic(!isPublic);
   };
 
-  const handleChatTypeSwitch = (type) => {
-    setActiveChatType(type);
-  };
-
   //const sendMessage = () => {
     if (message.trim()) {
 
