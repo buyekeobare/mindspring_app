@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 const PeerSupportPage = () => {
   const [mood, setMood] = useState(""); // Selected mood
   const [isPublic, setIsPublic] = useState(false); // Mood visibility
-  const [activeChatType, setActiveChatType] = useState("one-on-one");
+  //const [activeChatType, setActiveChatType] = useState("one-on-one");
   const [messages, setMessages] = useState([]); //Stores Chat
   const [message, setMessage] = useState(""); //Stores user inputs
   const userId = useState(() => Math.floor(Math.random() * 1000));
