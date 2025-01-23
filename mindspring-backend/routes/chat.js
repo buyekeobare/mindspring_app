@@ -30,4 +30,4 @@ const createWebSocket = (server) => {
   return io;
 };
 
-//module.exports = createWebSocket;
+module.exports = createWebSocket;
