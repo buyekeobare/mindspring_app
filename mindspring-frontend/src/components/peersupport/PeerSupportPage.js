@@ -8,6 +8,7 @@ const PeerSupportPage = () => {
   const [activeChatType, setActiveChatType] = useState("one-on-one");
   const [messages, setMessages] = useState([]); //Stores Chat
   const [message, setMessage] = useState(""); //Stores user inputs
+  const userId = useState(() => Math.floor(Math.random() * 1000));
 
   // Emojis for mood tracking
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
@@ -39,8 +40,13 @@ const PeerSupportPage = () => {
 
   const sendMessage = () => {
     if (message.trim()) {
-      const socket = io("http://localhost:5000")
-      socket.emit("sendMessage", message);
+
+      const userMessage = {
+        userId,
+        text: message,
+      };
+
+      socket.emit("sendMessage", userMessage);
       setMessage("");
     }
   };
@@ -78,43 +84,16 @@ const PeerSupportPage = () => {
         </div>
       </div>
 
-      {/* Chat Type Selection */}
-      <div className="chat-type-selector bg-first-color p-4 rounded-lg shadow-md mb-6">
-        <h2 className="text-lg font-bold text-fourth-color">Select Chat Type</h2>
-        <div className="flex space-x-4 mt-2">
-          <button
-            onClick={() => handleChatTypeSwitch("one-on-one")}
-            className={`px-4 py-2 rounded ${
-              activeChatType === "one-on-one"
-                ? "bg-third-color text-white"
-                : "bg-fourth-color text-white"
-            }`}
-          >
-            One-on-One Chat
-          </button>
-          <button
-            onClick={() => handleChatTypeSwitch("group")}
-            className={`px-4 py-2 rounded ${
-              activeChatType === "group"
-                ? "bg-third-color text-white"
-                : "bg-fourth-color text-white"
-            }`}
-          >
-            Group Chat
-          </button>
-        </div>
-      </div>
-
       {/* Chat Interface */}
       <div className="chat-interface bg-first-color p-4 rounded-lg shadow-md">
-        <h2 className="text-lg font-bold text-fourth-color">
-          {activeChatType === "one-on-one" ? "One-on-One Chat" : "Group Chat"}
-        </h2>
+        <h2 className="text-lg font-bold text-fourth-color">Chat Box</h2>
         <div className="chat-box mt-4 p-4 bg-second-color rounded-lg h-64 overflow-auto">
           {messages.length > 0 ? (
             messages.map((msg, index) => (
-              <p key={index} className="p-2 bg-white shadow rounded my-2">
-                {msg}
+              <p key={index}>
+                <div className={"inline-block max-w-[75%] p-2 bg-white shadow rounded my-2"}>
+                  <strong>User {msg.userId}:</strong> {msg.text}
+                </div>
               </p>
             ))
           ) : (
@@ -141,3 +120,4 @@ const PeerSupportPage = () => {
 };
 
 export default PeerSupportPage;
+
