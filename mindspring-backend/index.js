@@ -39,6 +39,7 @@ db.serialize(() => {
       userId INTEGER,
       entry TEXT NOT NULL,
       date TEXT NOT NULL,
+      
       FOREIGN KEY(userId) REFERENCES users(id)
     )
   `);
