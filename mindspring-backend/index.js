@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const http = require("http");
-//const createWebSocket = require("./routes/chat");
+const createWebSocket = require("./routes/chat");
 
 const app = express();
-//const server = http.createServer(app);
+const server = http.createServer(app);
 const PORT = 5000;
 const SECRET_KEY = "JWT_SECRET";
 
