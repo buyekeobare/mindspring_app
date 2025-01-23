@@ -9,7 +9,7 @@ const createWebSocket = require("./routes/chat");
 
 const app = express();
 const server = http.createServer(app);
-//const PORT = 5000;
+const PORT = 5000;
 const SECRET_KEY = "JWT_SECRET";
 
 // Middleware
