@@ -53,7 +53,7 @@ const PeerSupportPage = () => {
         <h2 className="text-lg font-bold text-fourth-color">Mood Tracker</h2>
         <div className="flex space-x-4 mt-2">
           {moodOptions.map((emoji, index) => (
-            //<button
+            <button
               key={index}
               onClick={() => handleMoodSelection(emoji)}
               className={`text-3xl ${
