@@ -12,7 +12,7 @@ const PeerSupportPage = () => {
   // Emojis for mood tracking
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
 
-  const socket = io("http://localhost:5000")
+  
 
   useEffect(() => {
     socket.on('receiveMessage', (newMessage) => {
