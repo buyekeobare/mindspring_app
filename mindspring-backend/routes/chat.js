@@ -2,10 +2,7 @@ const { Server } = require('socket.io');
 
 const createWebSocket = (server) => {
   const io = new Server(server, {
-    cors: {
-      origin: "http://localhost:3000",
-      methods: ["GET", "POST"],
-    },
+    
   });
 
   io.on('connection', (socket) => {
@@ -30,4 +27,4 @@ const createWebSocket = (server) => {
   return io;
 };
 
-module.exports = createWebSocket;
+//module.exports = createWebSocket;
