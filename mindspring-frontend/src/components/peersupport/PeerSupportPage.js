@@ -33,7 +33,7 @@ const PeerSupportPage = () => {
     setIsPublic(!isPublic);
   };
 
-  //const sendMessage = () => {
+  const sendMessage = () => {
     if (message.trim()) {
 
       const userMessage = {
