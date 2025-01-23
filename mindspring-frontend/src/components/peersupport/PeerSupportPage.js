@@ -46,7 +46,7 @@ const PeerSupportPage = () => {
     }
   };
 
-  //return (
+  return (
     <div className="peer-support-page bg-second-color min-h-screen p-8">
       {/* Mood Tracker Section */}
       <div className="mood-tracker bg-first-color p-4 rounded-lg shadow-md mb-6">
