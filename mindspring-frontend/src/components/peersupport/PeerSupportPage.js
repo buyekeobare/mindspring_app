@@ -13,7 +13,7 @@ const PeerSupportPage = () => {
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
 
   const socket = io("http://localhost:5000")
-  /**
+
   useEffect(() => {
     socket.on('receiveMessage', (newMessage) => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -28,7 +28,6 @@ const PeerSupportPage = () => {
     setMood(selectedMood);
     console.log("Mood selected:", selectedMood);
   };
-  */
 
   const handlePrivacyToggle = () => {
     setIsPublic(!isPublic);
