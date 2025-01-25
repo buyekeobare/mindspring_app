@@ -7,22 +7,23 @@ const ResourceCenter = () => {
     {
       title: "Podcast",
       links: [
-        { name: "Mindfulness Podcast Episode 1", url: "https://example.com/podcast1" },
-        { name: "Relaxation Techniques Episode 2", url: "https://example.com/podcast2" },
+        { name: "Creativity & innovation/Mental health in the community", url: "https://on.soundcloud.com/s37pC1nCduC9r1Fe8" },
+        { name: "Growing up & growing old/Mental health in the community", url: "https://on.soundcloud.com/sSYevbgZXrWY66Kp9" },
+        { name: "Trauma & adversity - Trauma-informed care / Mental health", url: "https://on.soundcloud.com/HBfkZPwgGMGLjv6v9"}
       ],
     },
     {
       title: "Stress Management Audio",
       links: [
-        { name: "Guided Breathing Audio", url: "https://example.com/audio1" },
-        { name: "Relaxation Music", url: "https://example.com/audio2" },
+        { name: "Guided Breathing Audio", url: "https://soundcloud.com/soundsmith-wurden/guided-10min-box-breath-4s" },
+        { name: "Relaxation Music", url: "https://on.soundcloud.com/nAffVBWnaqjUMdhr9" },
       ],
     },
     {
       title: "Wellness Tips",
       links: [
-        { name: "Daily Mindfulness Practices", url: "https://example.com/tip1" },
-        { name: "Healthy Sleep Habits", url: "https://example.com/tip2" },
+        { name: "18 Wellness Tips For a Healthier You", url: "https://www.centrum.com/learn/articles/18-wellness-tips-for-a-healthier-you/" },
+        { name: "Unlock the Secrets to Lifelong Wellness", url: "https://nizamiye.ng/lifestyle-3/" },
       ],
     },
   ];

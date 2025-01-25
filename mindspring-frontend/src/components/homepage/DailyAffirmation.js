@@ -5,21 +5,33 @@ const affirmationsData = {
     "Every day, I am growing and learning.",
     "I embrace challenges as opportunities to grow.",
     "My potential is limitless.",
+    "I am growing every day.",
+    "I am a catalyst for growth, everywhere I go!",
+    "My growth cannot be stopped.",
   ],
   Empowerment: [
     "I am strong and capable.",
     "I can overcome any obstacle.",
     "I have the power to create change in my life.",
+    "I can do all thing!",
+    "I am able to overcome at all times.",
+    "No task is beyond me!",
   ],
   Motivation: [
     "I am focused and determined to achieve my goals.",
     "I am in charge of my own happiness.",
     "Every step I take brings me closer to my dreams.",
+    "I didn't come this far to quit!",
+    "All I do is win, no matter what.",
+    "There is no challenge bigger than me.",
   ],
   Gratitude: [
     "I am grateful for the good things in my life.",
-    "My heart is full of gratitude for today.",
+    "My heart is full of gratitude to God today.",
     "I appreciate the small joys in life.",
+    "I am always thankful for the little and big things.",
+    "I am saturated with peace, joy and thankfullness in every moment.",
+    "I relate with gratitude towards all men."
   ],
 };
 
