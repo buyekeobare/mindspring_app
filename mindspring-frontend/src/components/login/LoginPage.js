@@ -16,6 +16,10 @@ const LoginPage = () => {
         body: JSON.stringify(credentials),
       });
       const data = await response.json();
+
+      // Log the response data for debugging
+      console.log("Response Data:", data);
+      
       if (response.ok) {
         // Store token and user_id in localStorage
         localStorage.setItem("token", data.token);

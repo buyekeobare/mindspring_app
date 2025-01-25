@@ -22,7 +22,7 @@ const Footer = () => {
         {/* Logo and About Section */}
         <div>
           <img
-            src="/assets/logo.png" // Replace with your logo path
+            src="/assets/mindspring-logo.png" 
             alt="Mindspring Logo"
             className="w-40 mb-6"
           />

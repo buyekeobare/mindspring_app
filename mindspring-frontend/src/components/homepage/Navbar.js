@@ -28,7 +28,6 @@ const Navbar = () => {
             alt="Mindspring Logo"
             className="h-10 logo hover:scale-105 transition-transform duration-300"
           />
-          <span className="text-xl font-bold text-fourth-color">Mindspring</span>
         </div>
         <div className="flex space-x-6 text-sm md:text-base">
           <button
