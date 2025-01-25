@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./config/db");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const authenticateToken = require("./middleware/auth");
