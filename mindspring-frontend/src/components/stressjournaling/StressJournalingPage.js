@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchEntries, createEntry } from "../../api/api";
+import { fetchEntries, createEntry, updateEntry } from "../../api/api";
 import "../../styles/App.css";
 
 const StressJournalingPage = () => {
@@ -15,34 +15,31 @@ const StressJournalingPage = () => {
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-  // Retrieve user_id from localStorage
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     if (!userId) {
       console.error("User ID not found in localStorage.");
-      navigate("/login"); // Redirect to login if user_id is missing
+      navigate("/login");
     }
   }, [navigate]);
 
-  // Fetch entries from the backend on component mount
   useEffect(() => {
-    const fetchAndSetEntries = async () => {
-      try {
-        const data = await fetchEntries();
-        setEntries(data);
-        setFilteredEntries(data);
-      } catch (error) {
-        console.error("Failed to fetch entries:", error);
-      }
-    };
-
     fetchAndSetEntries();
 
-    // Set today's date as the default in the form
     const today = new Date();
     const formattedDate = today.toLocaleDateString("en-GB");
     setFormData((prev) => ({ ...prev, date: formattedDate }));
   }, []);
+
+  const fetchAndSetEntries = async () => {
+    try {
+      const data = await fetchEntries();
+      setEntries(data);
+      setFilteredEntries(data);
+    } catch (error) {
+      console.error("Failed to fetch entries:", error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,58 +55,40 @@ const StressJournalingPage = () => {
     e.preventDefault();
     const { content, date } = formData;
 
-    // Validate that both content and date are provided
     if (!content || !date || isNaN(new Date(date.split("/").reverse().join("-")).getTime())) {
       console.error("Invalid date or content");
       return;
     }
 
-    // Convert date to YYYY-MM-DD format
     const formattedDate = new Date(date.split("/").reverse().join("-")).toISOString().split("T")[0];
 
     if (isEditing) {
       try {
-        const response = await fetch(`${API_URL}/journal/${editId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-          body: JSON.stringify({ content, date: formattedDate }),
+        const updatedEntry = await updateEntry(editId, {
+          content,
+          date: formattedDate,
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to update the entry.");
-        }
+        console.log("Updated Entry:", updatedEntry);
 
-        const updatedEntry = await response.json();
-
-        // Update the entry in local state
-        setEntries((prevEntries) =>
-          prevEntries.map((entry) => (entry.id === editId ? { ...entry, ...updatedEntry } : entry))
-        );
-        setFilteredEntries((prevEntries) =>
-          prevEntries.map((entry) => (entry.id === editId ? { ...entry, ...updatedEntry } : entry))
-        );
-
+        await fetchAndSetEntries();
         setIsEditing(false);
         setEditId(null);
       } catch (error) {
         console.error("Error updating entry:", error);
       }
     } else {
-      const newEntry = { content, date: formattedDate };
-
       try {
-        const savedEntry = await createEntry(newEntry);
-        setEntries((prev) => [...prev, savedEntry]);
-        setFilteredEntries((prev) => [...prev, savedEntry]);
+        const savedEntry = await createEntry({ content, date: formattedDate });
+        await fetchAndSetEntries();
+
+        console.log("Saved Entry:", savedEntry); 
+        
       } catch (error) {
         console.error("Failed to save entry:", error);
       }
     }
 
-    // Reset the form
     setFormData({ date: new Date().toLocaleDateString("en-GB"), content: "" });
   };
 
@@ -141,17 +120,13 @@ const StressJournalingPage = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete the entry.");
-      }
+      if (!response.ok) throw new Error("Failed to delete the entry.");
 
-      // Remove the deleted entry from state
-      setEntries((prev) => prev.filter((entry) => entry.id !== id));
-      setFilteredEntries((prev) => prev.filter((entry) => entry.id !== id));
+      await fetchAndSetEntries();
     } catch (error) {
       console.error("Error deleting entry:", error);
     }

@@ -147,8 +147,16 @@ app.put("/journal/:id", authenticateToken, (req, res) => {
       return res.status(404).json({ error: "Entry not found or not authorized." });
     }
 
-    console.log("Journal entry updated successfully:", { id, user_id: req.user.id });
-    res.json({ message: "Entry updated successfully!" });
+    const selectQuery = "SELECT * FROM journal WHERE id = ? AND user_id = ?";
+    db.get(selectQuery, [id, req.user.id], (err, updatedEntry) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: "Failed to fetch the updated entry." });
+      }
+
+      console.log("Updated Entry:", updatedEntry);
+      res.json(updatedEntry);
+    });
   });
 });
 

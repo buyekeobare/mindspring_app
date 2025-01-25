@@ -48,10 +48,6 @@ export const createEntry = async (entry) => {
 export const updateEntry = async (id, updatedEntry) => {
   try {
     const token = getToken();
-    console.log("Request URL:", `${API_URL}/${id}`);
-    console.log("Request Headers:", {
-      Authorization: `Bearer ${token}`,
-    });
     const response = await axios.put(`${API_URL}/${id}`, updatedEntry, {
       headers: {
         Authorization: `Bearer ${token}`,
