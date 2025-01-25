@@ -27,7 +27,7 @@ const StressJournalingPage = () => {
     fetchAndSetEntries();
 
     const today = new Date();
-    const formattedDate = today.toLocaleDateString("en-GB");
+    const formattedDate = today.toISOString().split("T")[0]; // yyyy-mm-dd
     setFormData((prev) => ({ ...prev, date: formattedDate }));
   }, []);
 
@@ -55,20 +55,14 @@ const StressJournalingPage = () => {
     e.preventDefault();
     const { content, date } = formData;
 
-    if (!content || !date || isNaN(new Date(date.split("/").reverse().join("-")).getTime())) {
+    if (!content || !date || isNaN(new Date(date).getTime())) {
       console.error("Invalid date or content");
       return;
     }
 
-    const formattedDate = new Date(date.split("/").reverse().join("-")).toISOString().split("T")[0];
-
     if (isEditing) {
       try {
-        const updatedEntry = await updateEntry(editId, {
-          content,
-          date: formattedDate,
-        });
-
+        const updatedEntry = await updateEntry(editId, { content, date });
         console.log("Updated Entry:", updatedEntry);
 
         await fetchAndSetEntries();
@@ -79,17 +73,17 @@ const StressJournalingPage = () => {
       }
     } else {
       try {
-        const savedEntry = await createEntry({ content, date: formattedDate });
+        const savedEntry = await createEntry({ content, date });
         await fetchAndSetEntries();
 
-        console.log("Saved Entry:", savedEntry); 
-        
+        console.log("Saved Entry:", savedEntry);
       } catch (error) {
         console.error("Failed to save entry:", error);
       }
     }
 
-    setFormData({ date: new Date().toLocaleDateString("en-GB"), content: "" });
+    const today = new Date().toISOString().split("T")[0];
+    setFormData({ date: today, content: "" });
   };
 
   const handleSearchSubmit = (e) => {
@@ -109,7 +103,8 @@ const StressJournalingPage = () => {
 
   const handleEdit = (id) => {
     const entryToEdit = entries.find((entry) => entry.id === id);
-    setFormData({ date: entryToEdit.date, content: entryToEdit.content });
+    const formattedDate = new Date(entryToEdit.date).toISOString().split("T")[0]; // yyyy-mm-dd
+    setFormData({ date: formattedDate, content: entryToEdit.content });
     setIsEditing(true);
     setEditId(id);
   };
@@ -149,15 +144,12 @@ const StressJournalingPage = () => {
 
         <form onSubmit={handleFormSubmit} className="journal-form">
           <input
-            type="text"
+            type="date"
             name="date"
-            placeholder="Date (DD/MM/YYYY)"
             value={formData.date}
             onChange={handleChange}
             className="form-control"
             required
-            pattern="\d{2}/\d{2}/\d{4}"
-            title="Enter the date in DD/MM/YYYY format"
           />
           <textarea
             name="content"
@@ -180,13 +172,13 @@ const StressJournalingPage = () => {
           <input
             type="text"
             name="date"
-            placeholder="Search Date (DD/MM/YYYY)"
+            placeholder="Search Date (YYYY-MM-DD)"
             value={searchDate.date}
             onChange={handleSearchChange}
             className="form-control"
             required
-            pattern="\d{2}/\d{2}/\d{4}"
-            title="Enter the date in DD/MM/YYYY format"
+            pattern="\d{4}-\d{2}-\d{2}"
+            title="Enter the date in YYYY-MM-DD format"
           />
           <button type="submit" className="small-button">Search</button>
         </form>
