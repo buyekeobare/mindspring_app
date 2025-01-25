@@ -58,7 +58,7 @@ const Features = () => {
             className="see-more-button bg-third-color text-white px-6 py-2 rounded-lg shadow-md hover:bg-fourth-color"
             onClick={() => navigate("/signup")}
           >
-            See More
+            Signup/Login to access features
           </button>
         </div>
       </div>

@@ -1,7 +1,10 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer id="footer" className="bg-[#476268] text-first-color py-12">
       {/* Top Section */}
@@ -49,7 +52,10 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#contact" className="hover:text-second-color transition">
+              <a
+                href="#contact" className="hover:text-second-color transition"
+                onClick={() => navigate("/contact")}
+              >
                 Contact
               </a>
             </li>

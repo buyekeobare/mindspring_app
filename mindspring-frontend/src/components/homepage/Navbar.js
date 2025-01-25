@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-second-color shadow-md sticky top-[60px] z-40">
+    <nav className="bg-second-color shadow-md sticky top-[50px] z-40">
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
         <div className="flex items-center space-x-2">
           <img

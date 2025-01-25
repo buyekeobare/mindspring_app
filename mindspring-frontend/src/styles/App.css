@@ -1,6 +1,8 @@
 /* Global Styles */
 html {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -20,16 +22,16 @@ h3 {
 }
 
 /* Utility Classes */
-.sticky {
+.upper-toolbar {
   position: sticky;
   top: 0;
-  /* Adjust top based on stacking */
-  z-index: 10;
+  z-index: 50;
 }
 
-.relative {
-  margin-top: calc(60px + 20px);
-  /* Example spacing for sticky headers */
+.nav-bar {
+  position: sticky;
+  top: 50;
+  z-index: 40;
 }
 
 /* Color Utilities */
@@ -55,6 +57,10 @@ h3 {
 
 .text-third-color {
   color: #40a798;
+}
+
+.hero-text-color {
+  color: #f5e1da;
 }
 
 /* Spacing Utilities */
