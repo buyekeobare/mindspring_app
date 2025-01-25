@@ -1,9 +1,9 @@
 const express = require("express");
 const db = require("./config/db");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const authenticateToken = require("./middleware/auth");
 
 const app = express();
 const PORT = 5000;
@@ -85,22 +85,6 @@ app.post("/login", (req, res) => {
   });
 });
 
-// Middleware for Authentication
-function authenticateToken(req, res, next) {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ error: "Access denied. No token provided." });
-  }
-
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded;
-    next();
-  } catch {
-    res.status(401).json({ error: "Invalid token." });
-  }
-}
-
 // Journal CRUD Operations
 
 // Create a new journal entry
@@ -174,7 +158,6 @@ app.delete("/journal/:id", authenticateToken, (req, res) => {
   const query = "DELETE FROM journal WHERE id = ? AND user_id = ?";
   console.log("Database Query:", query);
   console.log("Parameters:", { entry_id: id, user_id: req.user.id });
-
 
   db.run(query, [id, req.user.id], function (err) {
     if (err) {
