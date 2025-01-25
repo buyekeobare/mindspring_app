@@ -15,6 +15,8 @@ const PeerSupportPage = () => {
   const socket = io("http://localhost:5000")
 
   useEffect(() => {
+    if (!socket) return;
+
     socket.on('receiveMessage', (newMessage) => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
@@ -22,6 +24,7 @@ const PeerSupportPage = () => {
     return () => {
       socket.off('receiveMessage');
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleMoodSelection = (selectedMood) => {
