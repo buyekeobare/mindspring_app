@@ -6,7 +6,7 @@ const ContactPage = () => {
         {/* Hero Image Section */}
         <div className="hero-image relative">
           <img
-            src="/assets/hero.jpg"
+            src="/assets/contact-hero.jpeg"
             alt="Contact Mindspring"
             className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
           />

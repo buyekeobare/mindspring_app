@@ -38,7 +38,7 @@ const FeaturesPage = () => {
       {/* Hero Image Section */}
       <div className="relative h-[70vh]">
         <img
-          src="/assets/features-hero.jpg"
+          src="/assets/Photo_8.jpeg"
           alt="Features Hero"
           className="absolute inset-0 w-full h-full object-cover"
         />
