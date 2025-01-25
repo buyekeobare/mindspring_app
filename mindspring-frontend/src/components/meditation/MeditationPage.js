@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const MeditationPage = () => {
   // Timer States
@@ -45,8 +46,7 @@ const MeditationPage = () => {
       return () => clearInterval(timer);
     } else if (timeLeft === 0) {
       setIsTimerActive(false);
-      alert("Timer is complete. Great job!");
-    }
+      toast.success("Timer is complete. Great job!");    }
   }, [isTimerActive, timeLeft]);
 
   const startTimer = () => {

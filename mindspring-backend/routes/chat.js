@@ -11,9 +11,15 @@ const createWebSocket = (server) => {
   io.on('connection', (socket) => {
     console.log("user connected", socket.id);
 
-    socket.on('sendMessage', (message) => {
-      console.log("Message received:", message);
-      io.emit('receiveMessage', message);
+    socket.on('sendMessage', ({userId, text}) => {
+      console.log(`User ${userId} sent a message: ${text}`);
+
+      const fullMessage = {
+        userId,
+        text,
+      };
+
+      io.emit('receiveMessage', fullMessage);
     });
 
     socket.on('disconnect', () => {
