@@ -1,5 +1,5 @@
 const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
+const db = require("./config/db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
@@ -10,38 +10,28 @@ const PORT = 5000;
 const SECRET_KEY = "JWT_SECRET";
 
 // Middleware
-// cors middleware
 app.use(bodyParser.json());
 app.use(cors());
-
-// Database Setup 
-// db resolve
-const db = new sqlite3.Database("./mindspring.db", (err) => {
-  if (err) {
-    console.error("Error connecting to database:", err.message);
-  } else {
-    console.log("Connected to SQLite database.");
-  }
-});
+app.use("/entries", require("./routes/journals"));
 
 // Create Tables
 db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT UNIQUE,
-      email TEXT UNIQUE,
-      password TEXT
+      username TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL
     )
   `);
 
   db.run(`
     CREATE TABLE IF NOT EXISTS journal (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId INTEGER,
-      entry TEXT NOT NULL,
+      user_id INTEGER NOT NULL,
       date TEXT NOT NULL,
-      FOREIGN KEY(userId) REFERENCES users(id)
+      content TEXT NOT NULL,
+      FOREIGN KEY(user_id) REFERENCES users(id)
     )
   `);
 });
@@ -87,10 +77,11 @@ app.post("/login", (req, res) => {
     if (!isPasswordValid) return res.status(400).json({ error: "Invalid credentials." });
 
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "24h",
     });
 
-    res.json({ message: "Login successful!", token });
+    console.log("Generated Token:", token); // Log the generated token
+    res.json({ message: "Login successful!", token, user_id: user.id });
   });
 });
 
@@ -111,73 +102,97 @@ function authenticateToken(req, res, next) {
 }
 
 // Journal CRUD Operations
-app.post("/journal", authenticateToken, (req, res) => {
-  const { entry } = req.body;
-  const date = new Date().toISOString();
 
-  if (!entry || entry.trim() === "") {
-    return res.status(400).json({ error: "Entry cannot be empty." });
+// Create a new journal entry
+app.post("/journal", authenticateToken, (req, res) => {
+  const { content, date } = req.body;
+  const currentDate = date || new Date().toISOString();
+
+  if (!content || content.trim() === "") {
+    return res.status(400).json({ error: "Content cannot be empty." });
   }
 
-  const query = "INSERT INTO journal (userId, entry, date) VALUES (?, ?, ?)";
-  db.run(query, [req.user.id, entry, date], function (err) {
+  const query = "INSERT INTO journal (user_id, content, date) VALUES (?, ?, ?)";
+  db.run(query, [req.user.id, content, currentDate], function (err) {
     if (err) {
-      res.status(500).json({ error: err.message });
+      console.error(err.message);
+      res.status(500).json({ error: "Internal server error." });
     } else {
       res.status(201).json({ id: this.lastID, message: "Entry added successfully!" });
     }
   });
 });
 
+// Retrieve all journal entries for the user
 app.get("/journal", authenticateToken, (req, res) => {
-  const query = "SELECT * FROM journal WHERE userId = ? ORDER BY date DESC";
+  const query = "SELECT * FROM journal WHERE user_id = ? ORDER BY date DESC";
   db.all(query, [req.user.id], (err, rows) => {
     if (err) {
-      res.status(500).json({ error: err.message });
+      console.error(err.message);
+      res.status(500).json({ error: "Internal server error." });
     } else {
       res.json(rows);
     }
   });
 });
 
+// Update an existing journal entry
 app.put("/journal/:id", authenticateToken, (req, res) => {
   const { id } = req.params;
-  const { entry } = req.body;
+  const { content, date } = req.body;
 
-  if (!entry || entry.trim() === "") {
-    return res.status(400).json({ error: "Entry cannot be empty." });
+  if (!content || content.trim() === "") {
+    return res.status(400).json({ error: "Content cannot be empty." });
   }
 
-  const query = "UPDATE journal SET entry = ?, date = ? WHERE id = ? AND userId = ?";
-  const date = new Date().toISOString();
+  const query = "UPDATE journal SET content = ?, date = ? WHERE id = ? AND user_id = ?";
+  const currentDate = date || new Date().toISOString();
 
-  db.run(query, [entry, date, id, req.user.id], function (err) {
+  console.log("Database Query:", query);
+  console.log("Parameters:", { content, currentDate, entry_id: id, user_id: req.user.id });
+
+  db.run(query, [content, currentDate, id, req.user.id], function (err) {
     if (err) {
-      res.status(500).json({ error: err.message });
-    } else if (this.changes === 0) {
-      res.status(404).json({ error: "Entry not found or not authorized." });
-    } else {
-      res.json({ message: "Entry updated successfully!" });
+      console.error(err.message);
+      return res.status(500).json({ error: "Internal server error." });
     }
+
+    if (this.changes === 0) {
+      console.log("No rows affected. Entry not found or not authorized.");
+      return res.status(404).json({ error: "Entry not found or not authorized." });
+    }
+
+    console.log("Journal entry updated successfully:", { id, user_id: req.user.id });
+    res.json({ message: "Entry updated successfully!" });
   });
 });
 
+// Delete an existing journal entry
 app.delete("/journal/:id", authenticateToken, (req, res) => {
   const { id } = req.params;
 
-  const query = "DELETE FROM journal WHERE id = ? AND userId = ?";
+  const query = "DELETE FROM journal WHERE id = ? AND user_id = ?";
+  console.log("Database Query:", query);
+  console.log("Parameters:", { entry_id: id, user_id: req.user.id });
+
+
   db.run(query, [id, req.user.id], function (err) {
     if (err) {
-      res.status(500).json({ error: err.message });
-    } else if (this.changes === 0) {
-      res.status(404).json({ error: "Entry not found or not authorized." });
-    } else {
-      res.json({ message: "Entry deleted successfully!" });
+      console.error("Database error:", err.message);
+      return res.status(500).json({ error: "Internal server error." });
     }
+
+    if (this.changes === 0) {
+      console.log("No rows affected. Entry not found or not authorized.");
+      return res.status(404).json({ error: "Entry not found or not authorized." });
+    }
+
+    console.log("Journal entry deleted successfully:", { id, user_id: req.user.id });
+    res.json({ message: "Entry deleted successfully!" });
   });
 });
 
-// Start Server
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

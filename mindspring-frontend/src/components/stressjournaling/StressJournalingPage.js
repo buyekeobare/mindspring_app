@@ -1,21 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchEntries, createEntry } from "../../api/api";
 import "../../styles/App.css";
 
 const StressJournalingPage = () => {
   const [entries, setEntries] = useState([]);
   const [filteredEntries, setFilteredEntries] = useState([]);
-  const [formData, setFormData] = useState({ title: "", date: "", content: "" });
+  const [formData, setFormData] = useState({ date: "", content: "" });
   const [searchDate, setSearchDate] = useState({ date: "" });
   const [currentPage, setCurrentPage] = useState(1);
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const entriesPerPage = 3;
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+  // Retrieve user_id from localStorage
   useEffect(() => {
+    const userId = localStorage.getItem("user_id");
+    if (!userId) {
+      console.error("User ID not found in localStorage.");
+      navigate("/login"); // Redirect to login if user_id is missing
+    }
+  }, [navigate]);
+
+  // Fetch entries from the backend on component mount
+  useEffect(() => {
+    const fetchAndSetEntries = async () => {
+      try {
+        const data = await fetchEntries();
+        setEntries(data);
+        setFilteredEntries(data);
+      } catch (error) {
+        console.error("Failed to fetch entries:", error);
+      }
+    };
+
+    fetchAndSetEntries();
+
+    // Set today's date as the default in the form
     const today = new Date();
-    const formattedDate = today.toLocaleDateString("en-GB").split("/").join("/");
+    const formattedDate = today.toLocaleDateString("en-GB");
     setFormData((prev) => ({ ...prev, date: formattedDate }));
   }, []);
 
@@ -29,27 +54,63 @@ const StressJournalingPage = () => {
     setSearchDate({ ...searchDate, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (isEditing) {
-      setEntries((prevEntries) =>
-        prevEntries.map((entry) =>
-          entry.id === editId ? { ...entry, ...formData } : entry
-        )
-      );
-      setFilteredEntries((prevEntries) =>
-        prevEntries.map((entry) =>
-          entry.id === editId ? { ...entry, ...formData } : entry
-        )
-      );
-      setIsEditing(false);
-      setEditId(null);
-    } else {
-      const newEntry = { id: Date.now(), ...formData, expanded: false };
-      setEntries([...entries, newEntry]);
-      setFilteredEntries([...filteredEntries, newEntry]);
+    const { content, date } = formData;
+
+    // Validate that both content and date are provided
+    if (!content || !date || isNaN(new Date(date.split("/").reverse().join("-")).getTime())) {
+      console.error("Invalid date or content");
+      return;
     }
-    setFormData({ title: "", date: new Date().toLocaleDateString("en-GB"), content: "" });
+
+    // Convert date to YYYY-MM-DD format
+    const formattedDate = new Date(date.split("/").reverse().join("-")).toISOString().split("T")[0];
+
+    if (isEditing) {
+      try {
+        const response = await fetch(`${API_URL}/journal/${editId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+          body: JSON.stringify({ content, date: formattedDate }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to update the entry.");
+        }
+
+        const updatedEntry = await response.json();
+
+        // Update the entry in local state
+        setEntries((prevEntries) =>
+          prevEntries.map((entry) => (entry.id === editId ? { ...entry, ...updatedEntry } : entry))
+        );
+        setFilteredEntries((prevEntries) =>
+          prevEntries.map((entry) => (entry.id === editId ? { ...entry, ...updatedEntry } : entry))
+        );
+
+        setIsEditing(false);
+        setEditId(null);
+      } catch (error) {
+        console.error("Error updating entry:", error);
+      }
+    } else {
+      const newEntry = { content, date: formattedDate };
+
+      try {
+        const savedEntry = await createEntry(newEntry);
+        setEntries((prev) => [...prev, savedEntry]);
+        setFilteredEntries((prev) => [...prev, savedEntry]);
+      } catch (error) {
+        console.error("Failed to save entry:", error);
+      }
+    }
+
+    // Reset the form
+    setFormData({ date: new Date().toLocaleDateString("en-GB"), content: "" });
   };
 
   const handleSearchSubmit = (e) => {
@@ -69,18 +130,31 @@ const StressJournalingPage = () => {
 
   const handleEdit = (id) => {
     const entryToEdit = entries.find((entry) => entry.id === id);
-    setFormData({
-      title: entryToEdit.title,
-      date: entryToEdit.date,
-      content: entryToEdit.content,
-    });
+    setFormData({ date: entryToEdit.date, content: entryToEdit.content });
     setIsEditing(true);
     setEditId(id);
   };
 
-  const handleDelete = (id) => {
-    setEntries(entries.filter((entry) => entry.id !== id));
-    setFilteredEntries(filteredEntries.filter((entry) => entry.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/journal/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the entry.");
+      }
+
+      // Remove the deleted entry from state
+      setEntries((prev) => prev.filter((entry) => entry.id !== id));
+      setFilteredEntries((prev) => prev.filter((entry) => entry.id !== id));
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    }
   };
 
   const displayedEntries = filteredEntries.length > 0 ? filteredEntries : entries;
@@ -99,15 +173,6 @@ const StressJournalingPage = () => {
         <h1 className="text-fourth-color">Stress Journal</h1>
 
         <form onSubmit={handleFormSubmit} className="journal-form">
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={formData.title}
-            onChange={handleChange}
-            className="form-control"
-            required
-          />
           <input
             type="text"
             name="date"
@@ -154,7 +219,6 @@ const StressJournalingPage = () => {
         <div className="entries-list">
           {paginatedEntries.map((entry) => (
             <div key={entry.id} className="entry-card second-color">
-              <h2>{entry.title}</h2>
               <p>{entry.date}</p>
               <div className="entry-content">
                 {entry.expanded

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // toast notification
 import { toast } from "react-toastify";
 
-
 const LoginPage = () => {
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,9 +17,16 @@ const LoginPage = () => {
       });
       const data = await response.json();
       if (response.ok) {
+        // Store token and user_id in localStorage
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user_id", data.user_id);
+
+        // Log the token and user_id after they are stored
+        console.log("Token:", localStorage.getItem("token"));
+        console.log("User ID:", localStorage.getItem("user_id"));
+
         toast.success("Login successful!");
-        navigate("/features")
+        navigate("/features");
       } else {
         toast.error(data.error || "Invalid credentials. Please try again.");
       }
@@ -29,7 +35,6 @@ const LoginPage = () => {
       toast.error("An error occurred. Please try again.");
     }
   };
-  
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -43,8 +48,8 @@ const LoginPage = () => {
             value={credentials.email}
             onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-third-color"
-              required
-            />
+            required
+          />
           <label htmlFor="password" className="block text-gray-700">Password</label>
           <input
             type="password"
@@ -52,20 +57,24 @@ const LoginPage = () => {
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-third-color"
-              required
-            /> 
-          <button type="submit" className="w-full py-2 bg-third-color text-white rounded-lg hover:bg-fourth-color transition">Login
-
+            required
+          />
+          <button
+            type="submit"
+            className="w-full py-2 bg-third-color text-white rounded-lg hover:bg-fourth-color transition"
+          >
+            Login
           </button>
         </form>
         <p className="text-center text-gray-600 mt-4">
-            Don't have an account?{" "}
-           <Link to="/signup" className="text-third-color hover:underline">
-             Sign Up
-           </Link>
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-third-color hover:underline">
+            Sign Up
+          </Link>
         </p>
       </div>
     </div>
   );
 };
+
 export default LoginPage;

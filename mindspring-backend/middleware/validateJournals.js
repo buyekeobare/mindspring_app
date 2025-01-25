@@ -1,7 +1,8 @@
-// middleware/validateJournals.js
-
 module.exports = (req, res, next) => {
   const { date, content } = req.body;
+
+  // Log the request body to verify content and date are passed correctly
+  console.log('Request body:', req.body);
 
   // Check for missing fields
   if (!date || !content) {
