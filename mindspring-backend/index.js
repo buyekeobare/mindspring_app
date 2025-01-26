@@ -9,6 +9,8 @@ const cors = require("cors");
 const authenticateToken = require("./middleware/auth");
 const http = require("http");
 const createWebSocket = require("./routes/chat");
+const emailRoutes = require('./routes/email');
+
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +22,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 app.use("/entries", require("./routes/journals"));
+app.use('/api/email', emailRoutes);
 
 createWebSocket(server);
 

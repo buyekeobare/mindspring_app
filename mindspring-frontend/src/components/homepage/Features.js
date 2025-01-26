@@ -29,7 +29,7 @@ const Features = () => {
   return (
     <section
       id="features"
-      className="features-section bg-second-color py-12 px-6 scroll-mt-[120px]"
+      className="features-section bg-second-color py-12 px-6 scroll-mt-[110px]"
     >
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-bold text-center text-fourth-color mb-12">
