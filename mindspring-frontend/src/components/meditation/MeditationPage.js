@@ -12,20 +12,20 @@ const MeditationPage = () => {
     {
       id: 1,
       title: "Relaxing Mindfulness",
-      description: "Focus on the present moment with this guided session.",
-      audioUrl: "/path/to/relaxing-mindfulness.mp3",
+      description: "Click to play sound & focus on the moment with this guided session.",
+      audioUrl: "/assets/music/Soaking-presence.mp3",
     },
     {
       id: 2,
       title: "Deep Breathing Exercise",
-      description: "Practice slow, deep breaths to relax your body and mind.",
-      audioUrl: "/path/to/deep-breathing.mp3",
+      description: "Click to play sound & Practice slow, deep breaths to relax your body and mind.",
+      audioUrl: "/assets/music/Iba-instrumental.mp3",
     },
     {
       id: 3,
       title: "Stress Relief Meditation",
-      description: "Let go of stress with this calming meditation.",
-      audioUrl: "/path/to/stress-relief.mp3",
+      description: "Click to play sound & Let go of stress with this calming meditation.",
+      audioUrl: "/assets/music/Soaking-presence2.mp3",
     },
   ]);
 
