@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// toast notification
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -17,18 +18,8 @@ const LoginPage = () => {
       });
       const data = await response.json();
 
-      // Log the response data for debugging
-      console.log("Response Data:", data);
-      
       if (response.ok) {
-        // Store token and user_id in localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user_id", data.user_id);
-
-        // Log the token and user_id after they are stored
-        console.log("Token:", localStorage.getItem("token"));
-        console.log("User ID:", localStorage.getItem("user_id"));
-
+        login(data.token, data.user_id); // Update context
         toast.success("Login successful!");
         navigate("/features");
       } else {

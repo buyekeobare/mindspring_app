@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const UpperToolbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { isAuthenticated, logout, user } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // Redirect to home after logout
+  };
 
   const handleNavigation = (anchor) => {
     if (location.pathname === "/") {
@@ -21,40 +29,58 @@ const UpperToolbar = () => {
   return (
     <div className="bg-fourth-color text-first-color sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex justify-between items-center px-4 py-3">
-        {/* Left side with Login */}
+        {/* Left side: Navigation */}
         <div>
-          <Link
-            to="/login"
-            className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
-          >
-            Login
-          </Link>
+          {isAuthenticated ? (
+            <Link
+              to="/features"
+              className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
+            >
+              Features
+            </Link>
+          ) : (
+            <button
+              onClick={() => handleNavigation("home")}
+              className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
+            >
+              Home
+            </button>
+          )}
         </div>
 
-        {/* Right side with links */}
-        <div className="flex space-x-6 text-sm md:text-base items-center">
-          {/* Navigation for home page sections */}
-          <button
-            onClick={() => handleNavigation("home")}
-            className="hover:text-second-color"
-          >
-            Home
-          </button>
-          <Link to="/about" className="hover:text-second-color">
-            About
-          </Link>
-          <button
-            onClick={() => handleNavigation("features")}
-            className="hover:text-second-color"
-          >
-            Features
-          </button>
-          <Link
-            to="/contact"
-            className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
-          >
-            Contact
-          </Link>
+        {/* Right side: Welcome message and Logout */}
+        <div className="flex space-x-6 items-center">
+          {isAuthenticated && (
+            <span className="text-sm md:text-base">
+              Welcome <strong>{user?.username}</strong>!
+            </span>
+          )}
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/about" className="hover:text-second-color">
+                About
+              </Link>
+              <button
+                onClick={() => handleNavigation("features")}
+                className="hover:text-second-color"
+              >
+                Features
+              </button>
+              <Link
+                to="/contact"
+                className="bg-third-color text-white px-4 py-2 rounded hover:bg-white hover:text-third-color"
+              >
+                Contact
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>
