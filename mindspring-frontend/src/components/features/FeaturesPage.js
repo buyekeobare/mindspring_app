@@ -38,11 +38,11 @@ const FeaturesPage = () => {
       {/* Hero Image Section */}
       <div className="relative h-[70vh]">
         <img
-          src="/assets/Photo_7.jpeg"
+          src="/assets/feature.jpeg"
           alt="Features Hero"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="relative z-10 flex items-center justify-center h-full">
           <h1 className="text-4xl md:text-6xl font-bold text-first-color text-center">
             Our Features

@@ -10,7 +10,7 @@ const AboutPage = () => {
       {/* Hero Image Section */}
       <div className="relative h-[70vh]">
         <img
-          src="/assets/hero.jpg"
+          src="/assets/about-page.jpeg"
           alt="About Mindspring"
           className="absolute inset-0 w-full h-full object-cover"
         />
