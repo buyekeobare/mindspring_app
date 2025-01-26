@@ -16,8 +16,7 @@ const LoginPage = lazy(() => import("./components/login/LoginPage"));
 const ProtectedRoute = lazy(() => import("./components/routes/ProtectedRoute"));
 const PeerSupportPage = lazy(() => import("./components/peersupport/PeerSupportPage"));
 const StressJournalingPage = lazy(() => import("./components/stressjournaling/StressJournalingPage"));
-const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"));
-const AnalyticsPage = lazy(() => import("./components/analytics/AnalyticsPage"));
+const MeditationPage = lazy(() => import("./components/meditation/MeditationPage"))
 
 const App = () => {
   return (
@@ -42,7 +41,6 @@ const App = () => {
               <Route path="/features/peer-support" element={<PeerSupportPage />} />
               <Route path="/features/stress-journaling" element={<StressJournalingPage />} />
               <Route path="/features/meditation" element={<MeditationPage />} />
-              <Route path="/analytics" element={<AnalyticsPage />} />
             </Routes>
           </Suspense>
         </LayoutPage>

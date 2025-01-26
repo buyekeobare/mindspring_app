@@ -133,10 +133,6 @@ const StressJournalingPage = () => {
     currentPage * entriesPerPage
   );
 
-  const goToAnalytics = () => {
-    navigate("/analytics");
-  };
-
   return (
     <div className="relative first-color">
       <div className="stress-journal contact-page">
@@ -163,10 +159,6 @@ const StressJournalingPage = () => {
             {isEditing ? "Update Entry" : "Add Entry"}
           </button>
         </form>
-
-        <button onClick={goToAnalytics} className="small-button margin-top-lg">
-          View Analytics
-        </button>
 
         <form onSubmit={handleSearchSubmit} className="search-form margin-top-lg">
           <input
