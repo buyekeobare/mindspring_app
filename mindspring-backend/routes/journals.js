@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("../config/db");
 const router = express.Router();
 const validateJournals = require("../middleware/validateJournals");
-const auth = require("../middleware/auth"); // JWT middleware
+const auth = require("../middleware/auth"); 
 
 // Create a new journal entry
 router.post("/", auth, validateJournals, (req, res) => {
