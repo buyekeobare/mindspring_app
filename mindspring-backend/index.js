@@ -9,6 +9,9 @@ const cors = require("cors");
 const authenticateToken = require("./middleware/auth");
 const http = require("http");
 const createWebSocket = require("./routes/chat");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
+
 
 const app = express();
 const server = http.createServer(app);
@@ -89,10 +92,18 @@ app.post("/login", (req, res) => {
       expiresIn: "24h",
     });
 
-    console.log("Generated Token:", token); // Log the generated token
+    // console.log("Generated Token:", token); // Log the generated token
     res.json({ message: "Login successful!", token, user_id: user.id });
   });
 });
+
+// Logout Endpoint
+app.post("/logout", (req, res) => {
+  res.status(200).json({ message: "Logout successful! Redirecting to homepage..." });
+});
+
+// email
+
 
 // Journal CRUD Operations
 
