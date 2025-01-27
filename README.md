@@ -162,6 +162,6 @@ For questions or support, please contact [@mindspring@outlook.com](mailto:mindsp
 
 Team Mmembers of these app include:
 
-Buyeke Obare - `https://github.com/buyekeobare`
-Emmanuel Danso - `https://github.com/EmmanuelDanso1`
-Godman Oluwaseun - `https://github.com/GodmanOluwaseun`
+- Buyeke Obare - `https://github.com/buyekeobare`
+- Emmanuel Danso - `https://github.com/EmmanuelDanso1`
+- Godman Oluwaseun - `https://github.com/GodmanOluwaseun`
