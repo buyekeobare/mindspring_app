@@ -68,8 +68,8 @@ const Footer = () => {
             Contact Us
           </h3>
           <ul className="space-y-3">
-            <li>Email: support@mindspring.com</li>
-            <li>Phone: +254 (728) 456-789</li>
+            <li>Email: mindspring@outlook.com</li>
+            <li>Phone: +123 456 7890</li>
           </ul>
         </div>
 
