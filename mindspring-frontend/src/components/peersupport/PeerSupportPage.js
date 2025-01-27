@@ -12,7 +12,7 @@ const PeerSupportPage = () => {
   // Emojis for mood tracking
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
 
-  const socket = io("http://localhost:5000")
+  const socket = io("https://mindspring-backend-app.onrender.com")
 
   useEffect(() => {
     if (!socket) return;

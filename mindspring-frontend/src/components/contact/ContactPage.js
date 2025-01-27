@@ -19,7 +19,7 @@ const ContactPage = () => {
     setStatus("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/email/send", formData);
+      const response = await axios.post("https://mindspring-backend-app.onrender.com/api/email/send", formData);
       setStatus("Thank you! Your message has been sent successfully.");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
