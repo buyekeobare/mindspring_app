@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const SignUpPage = () => {
   const [credentials, setCredentials] = useState({
     username: "",
@@ -25,7 +27,7 @@ const SignUpPage = () => {
     }
 
     try {
-      const response = await fetch("https://mindspring-backend-app.onrender.com/signup", {
+      const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -19,7 +21,7 @@ const ContactPage = () => {
     setStatus("");
 
     try {
-      const response = await axios.post("https://mindspring-backend-app.onrender.com/api/email/send", formData);
+      const response = await axios.post(`${API_URL}api/email/send`, formData);
       setStatus("Thank you! Your message has been sent successfully.");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {

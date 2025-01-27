@@ -1,30 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { io } from "socket.io-client";
 
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_URL
+    : "http://localhost:5000";
 
 const PeerSupportPage = () => {
   const [mood, setMood] = useState(""); // Selected mood
   const [isPublic, setIsPublic] = useState(false); // Mood visibility
-  const [messages, setMessages] = useState([]); //Stores Chat
-  const [message, setMessage] = useState(""); //Stores user inputs
-  const userId = useState(() => Math.floor(Math.random() * 1000));
+  const [messages, setMessages] = useState([]); // Stores Chat
+  const [message, setMessage] = useState(""); // Stores user inputs
+  const userId = useMemo(() => Math.floor(Math.random() * 1000), []); // Unique user ID
+  const socketRef = useRef();
 
   // Emojis for mood tracking
   const moodOptions = ["😊", "😢", "😡", "😴", "🤔", "😁"];
 
-  const socket = io("https://mindspring-backend-app.onrender.com")
+  // Scroll to top of the page on load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   useEffect(() => {
-    if (!socket) return;
+    socketRef.current = io(API_URL);
 
-    socket.on('receiveMessage', (newMessage) => {
+    socketRef.current.on("receiveMessage", (newMessage) => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
 
     return () => {
-      socket.off('receiveMessage');
+      socketRef.current.disconnect();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleMoodSelection = (selectedMood) => {
@@ -32,19 +39,18 @@ const PeerSupportPage = () => {
     console.log("Mood selected:", selectedMood);
   };
 
- const handlePrivacyToggle = () => {
+  const handlePrivacyToggle = () => {
     setIsPublic(!isPublic);
   };
 
   const sendMessage = () => {
     if (message.trim()) {
-
       const userMessage = {
         userId,
         text: message,
       };
 
-      socket.emit("sendMessage", userMessage);
+      socketRef.current.emit("sendMessage", userMessage);
       setMessage("");
     }
   };
@@ -62,6 +68,7 @@ const PeerSupportPage = () => {
               className={`text-3xl ${
                 mood === emoji ? "border-2 border-third-color" : ""
               } rounded-full p-2 hover:bg-third-color hover:text-white`}
+              aria-label={`Select mood ${emoji}`}
             >
               {emoji}
             </button>
@@ -88,11 +95,12 @@ const PeerSupportPage = () => {
         <div className="chat-box mt-4 p-4 bg-second-color rounded-lg h-64 overflow-auto">
           {messages.length > 0 ? (
             messages.map((msg, index) => (
-              <p key={index}>
-                <div className={"inline-block max-w-[75%] p-2 bg-white shadow rounded my-2"}>
-                  <strong>User {msg.userId}:</strong> {msg.text}
-                </div>
-              </p>
+              <div
+                key={index}
+                className="block w-fit max-w-[75%] p-2 bg-white shadow rounded my-2"
+              >
+                <strong>User {msg.userId}:</strong> {msg.text}
+              </div>
             ))
           ) : (
             <p className="text-center text-gray-500">No messages yet...</p>
@@ -104,6 +112,7 @@ const PeerSupportPage = () => {
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a message..."
             className="w-full p-2 border rounded"
+            aria-label="Type a message"
           ></textarea>
           <button
             onClick={sendMessage}
@@ -118,4 +127,3 @@ const PeerSupportPage = () => {
 };
 
 export default PeerSupportPage;
-

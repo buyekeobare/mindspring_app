@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const { login } = useContext(AuthContext);
@@ -11,7 +13,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://mindspring-backend-app.onrender.com/login", {
+      const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),

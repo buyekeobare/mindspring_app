@@ -1,17 +1,28 @@
-const { Server } = require('socket.io');
+const { Server } = require("socket.io");
 
 const createWebSocket = (server) => {
+  const allowedOrigins = [
+    process.env.FRONTEND_URL, // Production frontend
+    "http://localhost:3000", // Local frontend for development
+  ];
+
   const io = new Server(server, {
     cors: {
-      origin: process.env.FRONTEND_URL || "http://localhost:3000",
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true); // Allow the origin
+        } else {
+          callback(new Error("CORS policy: This origin is not allowed"));
+        }
+      },
       methods: ["GET", "POST"],
     },
   });
 
-  io.on('connection', (socket) => {
-    console.log("user connected", socket.id);
+  io.on("connection", (socket) => {
+    console.log("User connected:", socket.id);
 
-    socket.on('sendMessage', ({userId, text}) => {
+    socket.on("sendMessage", ({ userId, text }) => {
       console.log(`User ${userId} sent a message: ${text}`);
 
       const fullMessage = {
@@ -19,11 +30,11 @@ const createWebSocket = (server) => {
         text,
       };
 
-      io.emit('receiveMessage', fullMessage);
+      io.emit("receiveMessage", fullMessage);
     });
 
-    socket.on('disconnect', () => {
-      console.log("user disconnected:", socket.id);
+    socket.on("disconnect", () => {
+      console.log("User disconnected:", socket.id);
     });
   });
 
@@ -31,3 +42,4 @@ const createWebSocket = (server) => {
 };
 
 module.exports = createWebSocket;
+

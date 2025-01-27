@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://mindspring-backend-app.onrender.com/entries";
+const API_URL = `${process.env.REACT_APP_API_URL || "http://localhost:5000"}/entries`;
 
 const getToken = () => localStorage.getItem("token");
 
@@ -8,10 +8,10 @@ const getToken = () => localStorage.getItem("token");
 export const fetchEntries = async () => {
   try {
     const token = getToken();
-    console.log("Request URL:", API_URL);
-    console.log("Request Headers:", {
-      Authorization: `Bearer ${token}`,
-    });
+    // console.log("Request URL:", API_URL);
+    // console.log("Request Headers:", {
+    //  Authorization: "Bearer [REDACTED]"});
+    
     const response = await axios.get(API_URL, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -91,4 +91,5 @@ const handleApiError = (error, action) => {
     throw new Error(`Unexpected error occurred while ${action}`);
   }
 };
+
 

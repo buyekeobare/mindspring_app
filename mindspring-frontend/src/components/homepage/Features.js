@@ -26,6 +26,13 @@ const Features = () => {
     },
   ];
 
+  const handleSignupNavigate = () => {
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Navigate to the signup page
+    navigate("/signup");
+  };
+
   return (
     <section
       id="features"
@@ -56,7 +63,7 @@ const Features = () => {
         <div className="text-center mt-8">
           <button
             className="see-more-button bg-third-color text-white px-6 py-2 rounded-lg shadow-md hover:bg-fourth-color"
-            onClick={() => navigate("/signup")}
+            onClick={handleSignupNavigate}
           >
             Signup/Login to access features
           </button>
@@ -67,3 +74,4 @@ const Features = () => {
 };
 
 export default Features;
+
