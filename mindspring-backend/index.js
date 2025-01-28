@@ -1,4 +1,4 @@
-require ('dotenv').config();
+require('dotenv').config();
 
 const express = require("express");
 const db = require("./config/db");
@@ -11,15 +11,17 @@ const http = require("http");
 const createWebSocket = require("./routes/chat");
 const emailRoutes = require('./routes/email');
 
-
 const app = express();
 const server = http.createServer(app);
-const PORT = 5000;
-const SECRET_KEY = "JWT_SECRET";
+const PORT = process.env.PORT || 5000;
+const SECRET_KEY = process.env.JWT_SECRET || "defaultsecret";
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  credentials: true,
+}));
 app.use(express.json());
 app.use("/entries", require("./routes/journals"));
 app.use('/api/email', emailRoutes);
@@ -143,9 +145,6 @@ app.put("/journal/:id", authenticateToken, (req, res) => {
   const query = "UPDATE journal SET content = ?, date = ? WHERE id = ? AND user_id = ?";
   const currentDate = date || new Date().toISOString();
 
-  console.log("Database Query:", query);
-  console.log("Parameters:", { content, currentDate, entry_id: id, user_id: req.user.id });
-
   db.run(query, [content, currentDate, id, req.user.id], function (err) {
     if (err) {
       console.error(err.message);
@@ -153,7 +152,6 @@ app.put("/journal/:id", authenticateToken, (req, res) => {
     }
 
     if (this.changes === 0) {
-      console.log("No rows affected. Entry not found or not authorized.");
       return res.status(404).json({ error: "Entry not found or not authorized." });
     }
 
@@ -163,8 +161,6 @@ app.put("/journal/:id", authenticateToken, (req, res) => {
         console.error(err.message);
         return res.status(500).json({ error: "Failed to fetch the updated entry." });
       }
-
-      console.log("Updated Entry:", updatedEntry);
       res.json(updatedEntry);
     });
   });
@@ -175,26 +171,27 @@ app.delete("/journal/:id", authenticateToken, (req, res) => {
   const { id } = req.params;
 
   const query = "DELETE FROM journal WHERE id = ? AND user_id = ?";
-  console.log("Database Query:", query);
-  console.log("Parameters:", { entry_id: id, user_id: req.user.id });
-
   db.run(query, [id, req.user.id], function (err) {
     if (err) {
-      console.error("Database error:", err.message);
+      console.error(err.message);
       return res.status(500).json({ error: "Internal server error." });
     }
 
     if (this.changes === 0) {
-      console.log("No rows affected. Entry not found or not authorized.");
       return res.status(404).json({ error: "Entry not found or not authorized." });
     }
 
-    console.log("Journal entry deleted successfully:", { id, user_id: req.user.id });
     res.json({ message: "Entry deleted successfully!" });
   });
 });
 
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal server error." });
+});
+
 // Start the server
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -42,4 +42,3 @@ const createWebSocket = (server) => {
 };
 
 module.exports = createWebSocket;
-
