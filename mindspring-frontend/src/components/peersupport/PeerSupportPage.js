@@ -26,6 +26,7 @@ const PeerSupportPage = () => {
     socketRef.current = io(API_URL);
 
     socketRef.current.on("receiveMessage", (newMessage) => {
+      console.log("Message received from server:", newMessage); // Debugging
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
 

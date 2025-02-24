@@ -91,5 +91,3 @@ const handleApiError = (error, action) => {
     throw new Error(`Unexpected error occurred while ${action}`);
   }
 };
-
-
