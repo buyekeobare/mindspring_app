@@ -17,11 +17,25 @@ const PORT = process.env.PORT || 5000;
 const SECRET_KEY = process.env.JWT_SECRET || "defaultsecret";
 
 // Middleware
+const allowedOrigins = [
+  "https://mindspring-frontend.vercel.app",
+  "http://localhost:3000" // Keep for local dev
+];
+
 app.use(bodyParser.json());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.use(express.json());
 app.use("/entries", require("./routes/journals"));
 app.use('/api/email', emailRoutes);
