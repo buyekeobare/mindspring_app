@@ -23,11 +23,22 @@ const PeerSupportPage = () => {
   }, []);
 
   useEffect(() => {
-    socketRef.current = io(API_URL);
+    socketRef.current = io(API_URL, {
+      transports: ["websocket"],
+      upgrade: false,
+    });
+
+    socketRef.current.on("connect", () => {
+      console.log("✅ WebSocket connected:", socketRef.current.id);
+    });
 
     socketRef.current.on("receiveMessage", (newMessage) => {
-      console.log("Message received from server:", newMessage); // Debugging
+      console.log("📩 Message received from server:", newMessage); // Debugging
       setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    socketRef.current.on("disconnect", () => {
+      console.log("❌ WebSocket disconnected");
     });
 
     return () => {
@@ -51,6 +62,7 @@ const PeerSupportPage = () => {
         text: message,
       };
 
+      console.log("🚀 Sending message:", userMessage); // Debugging
       socketRef.current.emit("sendMessage", userMessage);
       setMessage("");
     }

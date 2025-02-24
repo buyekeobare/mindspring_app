@@ -23,7 +23,7 @@ const createWebSocket = (server) => {
     console.log("User connected:", socket.id);
 
     socket.on("sendMessage", ({ userId, text }) => {
-      console.log(`User ${userId} sent a message: ${text}`);
+      console.log(`📩 Server received message from User ${userId}: ${text}`);
 
       const fullMessage = {
         userId,
