@@ -18,6 +18,7 @@ const SECRET_KEY = process.env.JWT_SECRET || "defaultsecret";
 
 // Middleware
 const allowedOrigins = [
+  
   "https://mindspring-frontend.vercel.app",
   "http://localhost:3000" // Keep for local dev
 ];

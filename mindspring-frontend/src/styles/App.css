@@ -3,14 +3,13 @@ html {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5e1da;
-  /* Background color based on the first color */
 }
 
 /* Typography */
@@ -34,43 +33,7 @@ h3 {
   z-index: 40;
 }
 
-/* Color Utilities */
-.first-color {
-  background-color: #f5e1da;
-}
-
-.second-color {
-  background-color: #f1f1f1;
-}
-
-.third-color {
-  background-color: #40a798;
-}
-
-.fourth-color {
-  background-color: #476268;
-}
-
-.text-fourth-color {
-  color: #476268;
-}
-
-.text-third-color {
-  color: #40a798;
-}
-
-.hero-text-color {
-  color: #f5e1da;
-}
-
-/* Spacing Utilities */
-.margin-top-sm {
-  margin-top: 1rem;
-}
-
-.margin-top-lg {
-  margin-top: 2rem;
-}
+/* Removed background color overrides; using Tailwind instead */
 
 /* Shared Form Styles */
 .form-control {
@@ -82,62 +45,36 @@ h3 {
 }
 
 .form-button {
-  background-color: #40a798;
-  /* Third color */
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  @apply bg-third-color text-white px-4 py-2 rounded-md transition duration-300;
 }
 
 .form-button:hover {
-  background-color: #476268;
-  /* Fourth color */
+  @apply bg-fourth-color;
 }
 
-/* Contact Page Specific Styles */
+/* Contact Page */
 .contact-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
+  @apply flex flex-col items-center p-8;
 }
 
 .contact-page h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #476268;
-  /* Fourth color for headings */
+  @apply text-4xl text-center mb-4 text-fourth-color;
 }
 
 .contact-page img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 1.5rem;
+  @apply max-w-full h-auto mb-6;
 }
 
 .entries-list {
-  max-height: 500px;
-  overflow-y: auto;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  @apply max-h-[500px] overflow-y-auto p-4 border border-gray-300 rounded-md;
 }
 
 .entry-card {
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  @apply p-4 rounded-md mb-4 bg-gray-100 shadow-md;
 }
 
 .entry-card h2 {
-  margin-bottom: 0.5rem;
-  color: #444;
+  @apply mb-2 text-gray-700;
 }
 
 .entry-content {
@@ -146,42 +83,21 @@ h3 {
 }
 
 .entry-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  @apply flex justify-end gap-2;
 }
 
 .small-button {
-  font-size: 0.8rem;
-  padding: 0.4rem 0.8rem;
-  margin: 0.3rem;
-  background-color: #40a798;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  @apply text-sm px-3 py-1 bg-third-color text-white rounded-md transition duration-300;
 }
 
 .small-button:hover {
-  background-color: #476268;
-  /* Fourth color for hover */
+  @apply bg-fourth-color;
 }
 
 .read-more-button {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  background-color: #40a798;
-  /* Third color */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  @apply mt-2 text-sm bg-third-color text-white px-3 py-1 rounded-md transition duration-300;
 }
 
 .read-more-button:hover {
-  background-color: #476268;
-  /* Fourth color for hover */
+  @apply bg-fourth-color;
 }

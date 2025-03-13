@@ -17,7 +17,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative text-center z-10">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 hero-text-color">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-second-color">
           Welcome to Mindspring
         </h1>
         <p className="text-lg md:text-xl mb-6">
