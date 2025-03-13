@@ -10,14 +10,16 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #f5e1da !important;
+  /* Ensure background color applies */
 }
 
 /* Typography */
 h1,
 h2,
 h3 {
-  color: #476268;
-  /* Fourth color for headings */
+  color: #476268 !important;
+  /* Ensure heading color applies */
 }
 
 /* Utility Classes */
@@ -33,71 +35,50 @@ h3 {
   z-index: 40;
 }
 
-/* Removed background color overrides; using Tailwind instead */
-
-/* Shared Form Styles */
-.form-control {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+/* Tailwind Responsive Color Fixes */
+.bg-first-color {
+  background-color: #f5e1da !important;
 }
 
-.form-button {
-  @apply bg-third-color text-white px-4 py-2 rounded-md transition duration-300;
+.bg-second-color {
+  background-color: #f1f1f1 !important;
 }
 
-.form-button:hover {
-  @apply bg-fourth-color;
+.bg-third-color {
+  background-color: #40a798 !important;
 }
 
-/* Contact Page */
-.contact-page {
-  @apply flex flex-col items-center p-8;
+.bg-fourth-color {
+  background-color: #476268 !important;
 }
 
-.contact-page h1 {
-  @apply text-4xl text-center mb-4 text-fourth-color;
+.text-fourth-color {
+  color: #476268 !important;
 }
 
-.contact-page img {
-  @apply max-w-full h-auto mb-6;
+.text-third-color {
+  color: #40a798 !important;
 }
 
-.entries-list {
-  @apply max-h-[500px] overflow-y-auto p-4 border border-gray-300 rounded-md;
-}
+/* Responsive Color Enforcement */
+@media (max-width: 768px) {
+  body {
+    background-color: #f5e1da !important;
+  }
 
-.entry-card {
-  @apply p-4 rounded-md mb-4 bg-gray-100 shadow-md;
-}
+  .bg-first-color {
+    background-color: #f5e1da !important;
+  }
 
-.entry-card h2 {
-  @apply mb-2 text-gray-700;
-}
+  .bg-second-color {
+    background-color: #f1f1f1 !important;
+  }
 
-.entry-content {
-  white-space: pre-wrap;
-  overflow: hidden;
-}
+  .bg-third-color {
+    background-color: #40a798 !important;
+  }
 
-.entry-actions {
-  @apply flex justify-end gap-2;
-}
-
-.small-button {
-  @apply text-sm px-3 py-1 bg-third-color text-white rounded-md transition duration-300;
-}
-
-.small-button:hover {
-  @apply bg-fourth-color;
-}
-
-.read-more-button {
-  @apply mt-2 text-sm bg-third-color text-white px-3 py-1 rounded-md transition duration-300;
-}
-
-.read-more-button:hover {
-  @apply bg-fourth-color;
+  .bg-fourth-color {
+    background-color: #476268 !important;
+  }
 }

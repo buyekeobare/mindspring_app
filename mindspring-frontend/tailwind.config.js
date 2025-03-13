@@ -6,10 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'first-color': '#f5e1da',
-        'second-color': '#f1f1f1',
-        'third-color': '#40a798',
-        'fourth-color': '#476268',
+        'first-color': '#f5e1da !important',
+        'second-color': '#f1f1f1 !important',
+        'third-color': '#40a798 !important',
+        'fourth-color': '#476268 !important',
       },
     },
   },
