@@ -13,9 +13,6 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Submitting login request to:", API_URL);
-      console.log("User Data:", credentials);
-
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -49,7 +46,7 @@ const LoginPage = () => {
           <input
             type="text"
             id="email"
-            name="email" // ✅ Added name attribute
+            name="email" 
             placeholder="email"
             value={credentials.email}
             onChange={(e) =>
@@ -65,7 +62,7 @@ const LoginPage = () => {
           <input
             type="password"
             id="password"
-            name="password" // ✅ Added name attribute
+            name="password" 
             placeholder="password"
             value={credentials.password}
             onChange={(e) =>

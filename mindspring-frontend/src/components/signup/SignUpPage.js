@@ -27,9 +27,6 @@ const SignUpPage = () => {
     }
 
     try {
-      console.log("Submitting signup request to:", API_URL);
-      console.log("User Data:", credentials);
-
       const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
