@@ -106,7 +106,7 @@ app.post("/login", (req, res) => {
     if (!isPasswordValid) return res.status(400).json({ error: "Invalid credentials." });
 
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
-      expiresIn: "3h",
+      expiresIn: "7d",
     });
 
     res.json({ message: "Login successful!", token, user_id: user.id });

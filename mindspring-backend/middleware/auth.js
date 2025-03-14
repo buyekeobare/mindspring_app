@@ -2,6 +2,12 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.JWT_SECRET;
 
 function authenticateToken(req, res, next) {
+  // Check if the secret key is defined
+  if (!SECRET_KEY) {
+    console.error("JWT_SECRET is not defined in environment variables.");
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+  
   // Extract token from Authorization header
   const token = req.headers.authorization?.split(" ")[1];
   
@@ -11,15 +17,12 @@ function authenticateToken(req, res, next) {
     return res.status(401).json({ error: "Access denied. No token provided." });
   }
 
-  // Log the received token for debugging
-  console.log("Token received:", token);
-
   try {
     // Verify the token with the secret key
     const decoded = jwt.verify(token, SECRET_KEY);
 
     // Log the decoded token for verification
-    console.log("Decoded Token:", decoded);
+    if (process.env.NODE_ENV !== "production") console.log("Decoded Token:", decoded);
 
     // Attach decoded user info to the request object
     req.user = decoded;

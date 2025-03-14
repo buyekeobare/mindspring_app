@@ -2,6 +2,9 @@ import axios from "axios";
 
 const API_URL = `${process.env.REACT_APP_API_URL || "http://localhost:5000"}/entries`;
 
+// Log API URL for debugging
+console.log("API URL (Web):", API_URL);
+
 const getToken = () => localStorage.getItem("token");
 
 // Fetch all journal entries for the user
