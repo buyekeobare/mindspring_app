@@ -12,7 +12,7 @@ const SignUpPage = () => {
     confirmPassword: "",
   });
   const navigate = useNavigate();
-// update
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
@@ -27,11 +27,15 @@ const SignUpPage = () => {
     }
 
     try {
+      console.log("Submitting signup request to:", API_URL);
+      console.log("User Data:", credentials);
+
       const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
       });
+
       const data = await response.json();
 
       if (response.ok) {
@@ -96,7 +100,10 @@ const SignUpPage = () => {
             />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 mb-2" htmlFor="confirmPassword">
+            <label
+              className="block text-gray-700 mb-2"
+              htmlFor="confirmPassword"
+            >
               Confirm Password
             </label>
             <input
